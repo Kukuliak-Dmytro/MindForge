@@ -7,15 +7,15 @@ import  {Contact}  from "./pages/Contact.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/mind-forge/",
+    path: "/MindForge/",
     element: <App />,
     children: [
       {
-        path: "/mind-forge/",
+        path: "/MindForge/",
         element: <Home />,
       },
       {
-        path: "/mind-forge/contact",
+        path: "/MindForge/contact",
         element: <Contact />,
       },
     ],

@@ -18,9 +18,9 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <nav>
-        <Link to='/mind-forge/' >Home</Link>
+        <Link to='/MindForge/' >Home</Link>
         {" | "}
-        <Link to='/mind-forge/contact' >Contact</Link>
+        <Link to='/MindForge/contact' >Contact</Link>
 
       </nav>
      <Outlet></Outlet>

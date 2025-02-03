@@ -1,9 +1,9 @@
 {
-  "name": "mind-forge",
+  "name": "MindForge",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "mind-forge",
+  "homepage": "MindForge",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "mind-forge": "file:",
+    "MindForge": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.0",
