@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import  Home from "./Pages/Home.tsx";
-import  Contact  from "./Pages/Contact.tsx";
+import  Home from "./pages/Home.tsx";
+import  Contact  from "./pages/Contact.tsx";
 import './global-styles.scss'
 const router = createBrowserRouter([
   {
