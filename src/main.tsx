@@ -4,7 +4,7 @@ import App from './App.tsx'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import  Home from "./pages/Home.tsx";
 import  Contact  from "./pages/Contact.tsx";
-import './global-styles.scss'
+import './globalStyles.scss'
 const router = createBrowserRouter([
   {
     path: "/MindForge/",
