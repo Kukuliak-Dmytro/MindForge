@@ -7,12 +7,17 @@ $whiteForeground: #F9F9F0;
 $richBlack: #0B0702;
 $darkGray: #373737;
 
-/* varaibles for corners*/
-$smallRadius: 6px;
-$mediumRadius: 12px;
-$largeRadius: 24px;
+/* variables for borders */
+$smallBorder:6px;
+$mediumBorder:12px;
+$largeBorder:24px;
 
 /* variables for shadows */
-$smallShadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-$mediumShadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-$doubleShadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+$smallShadow: 0px 2px 4px rgba(0,0,0,0.2);
+$mediumShadow: 0px 4px 8px rgba(0,0,0,0.2);
+$largeShadow: 4px 4px 16px rgba(0,0,0,0.2);
+
+/* variables for transitions*/
+$fastTransition: 0.2s ease-in-out;
+$mediumTransition: 0.3s ease-in-out;
+$slowTransition: 0.4s ease-in-out;

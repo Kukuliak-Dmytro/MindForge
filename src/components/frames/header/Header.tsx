@@ -11,7 +11,7 @@ export default function Header({ role }: { role: string }) {
                 </div>
                 <div className="right">
                     <PrimaryButton>Почати заробляти</PrimaryButton>
-                    <SecondaryButton width={40}>
+                    <SecondaryButton icon={true}>
                     <RxHamburgerMenu></RxHamburgerMenu>
                     </SecondaryButton>
                 </div>
