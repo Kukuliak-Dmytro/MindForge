@@ -1,0 +1,38 @@
+@use '../../../variables.scss' as v;
+.footerWrapper{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(v.$whiteBackground,v.$whiteForeground);
+    .footer{
+        width: 1240px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 60px 0px;
+        .col:first-of-type{
+           gap: 16px;
+           span{
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            svg:hover{
+                fill: v.$primaryColor;
+                transition: v.$fastTransition;       
+                    
+            }
+           }
+        }
+   
+        
+    }
+    .line{
+        height: 60px;
+        background-color: v.$whiteBackground;
+        width: 100%;
+        border-bottom: 2px solid black;
+    }
+}

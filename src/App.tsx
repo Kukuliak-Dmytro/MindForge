@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom'
 //the main section is where the router outlet is
 //the header and footer are fixed
 import Header from './components/frames/header/Header'
+import Footer from './components/frames/footer/Footer'
 import './App.scss'
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
     <div className="appWrapper">
       <Header role='employer'></Header>
      <Outlet></Outlet>
-  
+      <Footer></Footer>
     </div>
 
 
