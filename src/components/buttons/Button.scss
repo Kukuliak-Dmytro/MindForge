@@ -1,0 +1,40 @@
+@use '../../varibles.scss' as v;
+
+.primaryBtn, .secondaryBtn, .dangerBtn{
+    
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px 25px;
+    border: none;
+    border-radius:12px;
+    height: 40px;
+    min-width: 40px;
+    white-space: nowrap;
+    
+    box-shadow: v.$smallShadow;
+    cursor: pointer;
+    transition: v.$fastTransition;
+    &:hover{
+        scale: 1.05;
+    }
+    &:active{
+        scale: 0.95;
+    }
+}
+.primaryBtn{
+    background-color: v.$primaryColor;
+}
+
+.secondaryBtn{
+    background-color: v.$secondaryColor;
+}
+
+.dangerBtn{
+    background-color:#E74E39;
+}
+.large{
+    height: 60px;
+    width: 250px;
+    font-size: 24px;
+    font-weight: 600;
+}

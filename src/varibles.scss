@@ -1,11 +1,23 @@
-/* variables for colors*/
-$primary-color: #FB7951;
-$secondary-color: #FFC61A;
-$accent-color: #99E1D9;
-$white-background: #FCFCF8;
-$white-foreground: #F9F9F0;
-$rich-black: #0B0702;
-$dark-gray: #373737;
+/* variables for colors */
+$primaryColor: #FB7951;
+$secondaryColor: #FFC61A;
+$accentColor: #99E1D9;
+$whiteBackground: #FCFCF8;
+$whiteForeground: #F9F9F0;
+$richBlack: #0B0702;
+$darkGray: #373737;
 
-//
+/* variables for borders */
+$smallBorder:6px;
+$mediumBorder:12px;
+$largeBorder:24px;
 
+/* variables for shadows */
+$smallShadow: 0px 2px 4px rgba(0,0,0,0.2);
+$mediumShadow: 0px 4px 8px rgba(0,0,0,0.2);
+$largeShadow: 4px 4px 16px rgba(0,0,0,0.2);
+
+/* variables for transitions*/
+$fastTransition: 0.2s ease-in-out;
+$mediumTransition: 0.3s ease-in-out;
+$slowTransition: 0.4s ease-in-out;
