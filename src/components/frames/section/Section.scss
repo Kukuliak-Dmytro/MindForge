@@ -1,0 +1,15 @@
+@use '../../../variables.scss' as v;
+.section{
+    width: 1240px;
+    height: auto;
+    padding: 60px;
+    background-color: v.$whiteForeground;
+    margin-top: 60px;
+    box-shadow: v.$doubleShadow;
+    border-radius: v.$largeBorder;
+    margin-bottom: 60px;
+    
+}
+.title{
+    margin-top: 16px;
+}

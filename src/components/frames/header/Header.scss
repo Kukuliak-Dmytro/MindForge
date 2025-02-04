@@ -5,7 +5,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: v.$whiteBackground;
+    background-image: linear-gradient( v.$whiteForeground, v.$whiteBackground);
+    box-shadow: v.$smallShadow;
     .headerInner{
         display: flex;
         justify-content: space-between;

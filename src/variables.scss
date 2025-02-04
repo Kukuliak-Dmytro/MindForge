@@ -13,9 +13,9 @@ $mediumBorder:12px;
 $largeBorder:24px;
 
 /* variables for shadows */
-$smallShadow: 0px 2px 4px rgba(0,0,0,0.2);
-$mediumShadow: 0px 4px 8px rgba(0,0,0,0.2);
-$largeShadow: 4px 4px 16px rgba(0,0,0,0.2);
+$smallShadow: 0px 2px 2px 0 rgba(0,0,0,0.2);
+$mediumShadow: 0px 4px 4px 0 rgba(0,0,0,0.2);
+$doubleShadow: 0 0 4px 4px rgba(0,0,0,0.2);
 
 /* variables for transitions*/
 $fastTransition: 0.2s ease-in-out;
