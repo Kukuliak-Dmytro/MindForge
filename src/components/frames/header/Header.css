@@ -1,0 +1,21 @@
+.headerWrapper {
+    width: 99%;
+    height: 79px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(var(--whiteForeground), var(--whiteBackground));
+    box-shadow: var(--smallShadow);
+    .headerInner {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1239px;
+        width: 99%;
+        .left, .right {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+}

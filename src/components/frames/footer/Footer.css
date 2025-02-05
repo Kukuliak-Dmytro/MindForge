@@ -1,4 +1,3 @@
-@use '../../../variables.scss' as v;
 .footerWrapper{
     width: 100%;
     height: auto;
@@ -6,7 +5,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-image: linear-gradient(v.$whiteBackground,v.$whiteForeground);
+    background-image: linear-gradient(var(--whiteBackground), var(--whiteForeground));
     .footer{
         width: 1240px;
         display: flex;
@@ -20,18 +19,16 @@
             align-items: center;
             gap: 16px;
             svg:hover{
-                fill: v.$primaryColor;
-                transition: v.$fastTransition;       
+                fill: var(--primaryColor);
+                transition: var(--fastTransition);       
                     
             }
            }
         }
-   
-        
     }
     .line{
         height: 60px;
-        background-color: v.$whiteBackground;
+        background-color: var(--whiteBackground);
         width: 100%;
         border-bottom: 2px solid black;
     }

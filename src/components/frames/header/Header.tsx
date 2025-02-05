@@ -1,6 +1,6 @@
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button"
 import { RxHamburgerMenu } from "react-icons/rx";
-import './Header.scss'
+import './Header.css'
 export default function Header({ role }: { role: 'employee'|'employer' }) {
     return (
         <div className="headerWrapper">

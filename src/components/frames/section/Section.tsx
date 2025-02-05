@@ -2,7 +2,7 @@
 // 2 variants: with a title and without a title
 //no title has 60px padding top
 //title has 16px padding top and then an h3 title, and no padding top
-import './Section.scss'
+import './Section.css'
 interface sectionProps {
     title?: string;
     children?: React.ReactNode;

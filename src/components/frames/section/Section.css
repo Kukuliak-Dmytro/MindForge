@@ -1,0 +1,13 @@
+.section {
+    width: 1240px;
+    height: auto;
+    padding: 60px;
+    background-color: var(--whiteForeground);
+    margin-top: 60px;
+    box-shadow: var(--doubleShadow);
+    border-radius: var(--largeBorder);
+}
+
+.title {
+    margin-top: 16px;
+}

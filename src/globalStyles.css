@@ -1,14 +1,10 @@
-// styles for all the fonts, colors, etc. that are used throughout the app
-@use './variables.scss' as v;
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Montserrat Alternates",serif;
-    color: v.$richBlack
+    color: var(--richBlack);
 }
-
 h1{
     font-size: 48px;
     font-weight: 700;
@@ -40,7 +36,7 @@ p{
 .p2{
     font-size: 16px;
     font-weight: 400;
-    color: v.$darkGray;
+    color:var(--darkGray)
 }
 a{
     text-decoration: none;

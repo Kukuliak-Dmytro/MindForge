@@ -1,4 +1,3 @@
-@use '../../variables.scss' as v;
 
 .primaryBtn, .secondaryBtn, .dangerBtn{
     
@@ -14,9 +13,9 @@
     height: 40px;
     min-width: 40px;
     white-space: nowrap;
-    box-shadow: v.$smallShadow;
+    box-shadow: var(--smallShadow);
     cursor: pointer;
-    transition: v.$fastTransition;
+    transition: var(--fastTransition);
     &:hover{
         scale: 1.05;
     }
@@ -25,11 +24,11 @@
     }
 }
 .primaryBtn{
-    background-color: v.$primaryColor;
+    background-color: var(--primaryColor);
 }
 
 .secondaryBtn{
-    background-color: v.$secondaryColor;
+    background-color: var(--secondaryColor);
 }
 
 .dangerBtn{
