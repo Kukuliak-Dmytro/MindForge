@@ -12,7 +12,8 @@ import './variables.css'
 function App() {
 
   return (
-    <div className="appWrapper">
+    <div className="appWrapper ">
+      {/*<div className="appWrapper dark-theme"></div>*/}
       <Header role='employer'></Header>
      <Outlet></Outlet>
       <Footer></Footer>
