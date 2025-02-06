@@ -17,11 +17,12 @@
     cursor: pointer;
     transition: var(--fastTransition);
     &:hover{
-        scale: 1.05;
+        transform: scale(1.05);
     }
     &:active{
-        scale: 0.95;
+        transform: scale(0.95);
     }
+    
 }
 .primaryBtn{
     background-color: var(--primaryColor);

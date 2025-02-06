@@ -6,16 +6,74 @@
     align-items: center;
     background-image: linear-gradient(var(--whiteBackground), var(--whiteForeground));
     box-shadow: var(--smallShadow);
+
     .headerInner {
         display: flex;
         justify-content: space-between;
         max-width: 1240px;
         width: 100%;
-        .left, .right {
+
+        .left,
+        .right {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
         }
+
+        .right {
+            position: relative;
+
+            .dropdown {
+                opacity: 0;
+                pointer-events: none;
+                transition: var(--mediumTransition);
+                min-width: 150px;
+                height: auto;
+                position: absolute;
+                background-color: var(--whiteForeground);
+                border-radius: var(--mediumBorder);
+                box-shadow: var(--doubleShadow);
+                top: 40px;
+                right: 0;
+                transform: translate((50%, 0));
+                padding: 16px;
+                .dropdown-content{
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    text-align: right;
+                    .dropdown-option{
+                        cursor: pointer;
+                        transition: var(--fastTransition);
+                        &:hover{
+                            color: var(--secondaryColor);
+                        }
+                    }
+                }
+                &.active{
+                    opacity: 1;
+                    pointer-events: all;
+                    transform: translateY(16px);
+                    z-index: 2;
+                }
+                
+            }
+
+
+        }
+        
     }
+    .overlay-to-close{
+                    width: 99vw;
+                    height: 100vh;
+                    top: 0;
+                    left: 0;      
+                    pointer-events: none;   
+                    position: absolute;
+                    &.active{
+                        pointer-events: all;
+                        z-index: 1;
+                    }
+                }
 }

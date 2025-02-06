@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="appWrapper ">
       {/*<div className="appWrapper dark-theme"></div>*/}
-      <Header role='employer'></Header>
+      <Header  isLogged={false} role='employer'></Header>
      <Outlet></Outlet>
       <Footer></Footer>
     </div>

@@ -18,9 +18,12 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            svg{
+                 transition: var(--fastTransition);
+            }
             svg:hover{
                 fill: var(--primaryColor);
-                transition: var(--fastTransition);       
+                      
                     
             }
            }
