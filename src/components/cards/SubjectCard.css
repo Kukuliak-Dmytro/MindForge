@@ -1,0 +1,13 @@
+.cardWrapper{
+    height: 35px;
+    width: auto;
+    padding: 0px 10px;
+    border-radius: var(--smallBorder);
+    box-shadow: var(--smallShadow);
+    background-color: var(--whiteBackground);
+    display: flex;
+    justify-content: space-between;
+    .cardContent{
+        padding: 10px 0px;
+    }
+}

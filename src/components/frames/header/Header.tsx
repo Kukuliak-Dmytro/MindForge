@@ -1,5 +1,4 @@
 import { PrimaryButton, SecondaryButton } from "../../buttons/Button"
-import { RxHamburgerMenu } from "react-icons/rx";
 import { useState } from "react";
 import './Header.css'
 interface HeaderProps {
