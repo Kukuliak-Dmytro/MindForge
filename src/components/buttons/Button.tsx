@@ -20,7 +20,7 @@ export function PrimaryButton({ children, large, width, icon, link,onClick}: but
 
 export function SecondaryButton({ children, large, width, icon, link,onClick}: buttonProps) {
     if(link){
-        return <a href={link} className={`SecondaryBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</a>
+        return <a href={link} className={`secondaryBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</a>
     }else
     return <button onClick={onClick} className={`secondaryBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</button>
 
@@ -28,9 +28,9 @@ export function SecondaryButton({ children, large, width, icon, link,onClick}: b
 
 export function DangerButton({ children, large, width, icon, link,onClick}: buttonProps) {
     if(link){
-        return <a href={link} className={`DangerBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</a>
+        return <a href={link} className={`dangerBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</a>
     }else
-    return <button onClick={onClick} className={`dangeerBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</button>
+    return <button onClick={onClick} className={`dangerBtn ${icon ? 'icon' : ''} ${large ? 'large' : ''}`} style={{ width }}>{children}</button>
 
 }
 

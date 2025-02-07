@@ -10,7 +10,6 @@ export default function Home() {
     return (
         <>
             <PageWrapper>
-
                 {/* <SubjectCard icon={<Icons icon='Geo'></Icons>}> Test test test</SubjectCard> */}
                 {/* <Icons icon='Geo' size={100}></Icons>
                     <Icons icon='Ukr'></Icons>
@@ -53,7 +52,7 @@ export default function Home() {
                         </div>
                     </div>
                 </Section>
-
+                    
             </PageWrapper>
         </>
     )

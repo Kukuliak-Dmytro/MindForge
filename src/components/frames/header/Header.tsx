@@ -31,7 +31,7 @@ export default function Header({ role, isLogged }: HeaderProps) {
     <div className="headerWrapper">
       <div className="headerInner">
         <div className="left">
-          <SecondaryButton >Логотип</SecondaryButton>
+          <SecondaryButton link="#">Логотип</SecondaryButton>
           <SecondaryButton> Фахівці</SecondaryButton>
         </div>
         <div className="right">

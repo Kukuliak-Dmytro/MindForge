@@ -39,9 +39,9 @@
                 cursor: pointer;
                 transition: var(--fastTransition);
 
-                &:hover {
+                /* &:hover {
                     scale: 1.05;
-                }
+                } */
             }
 
             span {
