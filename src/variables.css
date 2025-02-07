@@ -43,15 +43,15 @@
     --primaryColor: hsl(14, 96%, calc(100% - 65%));
     --secondaryColor: hsl(45, 100%, calc(100% - 55%));
     --accentColor: hsl(173, 55%, calc(100% - 74%));
-    --whiteBackground: hsl(60, 40%, calc(100% - 98%));
+    --whiteBackground: hsl(60, 40%, calc(100% - 97%));
     --whiteForeground: hsl(60, 43%, calc(100% - 96%));
     --richBlack: hsl(33, 69%, calc(100% - 3%));
     --darkGray: hsl(0, 0%, calc(100% - 22%));
 
     /* variables for shadows */
-    --smallShadow: 0px 2px 4px 0 rgba(0, 0, 0, 0.4);
-    --mediumShadow: 0px 4px 8px 0 rgba(0, 0, 0, 0.4);
-    --doubleShadow: 0 0 8px 8px rgba(0, 0, 0, 0.4); 
+    --smallShadow: 0px 2px 4px 0 rgba(109, 109, 109, 0.1);
+    --mediumShadow: 0px 4px 8px 0 rgba(116, 116, 116, 0.1);
+    --doubleShadow: 0 0 8px 8px rgba(122, 122, 122, 0.1); 
     }
    
 }

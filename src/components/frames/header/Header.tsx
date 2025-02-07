@@ -10,19 +10,19 @@ export default function Header({ role, isLogged }: HeaderProps) {
   let dropdownContent;
   if (isLogged) {
     dropdownContent = (
-      <div className="dropdown-content">
-        <a href="#" className="dropdown-option">Профіль</a>
-        <a href="#" className="dropdown-option">Збережені</a>
-        <a href="#" className="dropdown-option">Повідомлення</a>
-        <a href="#" className="dropdown-option">Замовлення</a>
-        <a href="#" className="dropdown-option">Вихід</a>
+      <div className="dropdownContent">
+        <a href="#" className="dropdownOption">Профіль</a>
+        <a href="#" className="dropdownOption">Збережені</a>
+        <a href="#" className="dropdownOption">Повідомлення</a>
+        <a href="#" className="dropdownOption">Замовлення</a>
+        <a href="#" className="dropdownOption">Вихід</a>
       </div>
     );
   } else {
     dropdownContent = (
-      <div className="dropdown-content" >
-        <a href="#" className="dropdown-option">Увійти як фахівець</a>
-        <a href="#" className="dropdown-option">Увійти як замовник</a>
+      <div className="dropdownContent" >
+        <a href="#" className="dropdownOption">Увійти як фахівець</a>
+        <a href="#" className="dropdownOption">Увійти як замовник</a>
       </div>
     );
   }
@@ -36,7 +36,7 @@ export default function Header({ role, isLogged }: HeaderProps) {
         </div>
         <div className="right">
           <PrimaryButton>{role === 'employer' ? 'Почати заробляти' : 'Замовити послугу'}</PrimaryButton>
-          <div className="dropdown-button" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+          <div className="dropdownButton" onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
             <span className={`${isDropdownOpen ? "show" : ""}`}></span>
             <span className={`${isDropdownOpen ? "show" : ""}`}></span>
             <span className={`${isDropdownOpen ? "show" : ""}`}></span>
@@ -49,7 +49,7 @@ export default function Header({ role, isLogged }: HeaderProps) {
         </div>
 
       </div>
-      <div className={`overlay-to-close ${isDropdownOpen ? 'active' : ''}`} onClick={() => setIsDropdownOpen(!isDropdownOpen)}></div>
+      <div className={`overlayToClose ${isDropdownOpen ? 'active' : ''}`} onClick={() => setIsDropdownOpen(!isDropdownOpen)}></div>
     </div>
   )
 }

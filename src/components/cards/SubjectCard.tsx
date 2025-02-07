@@ -3,9 +3,9 @@ import './SubjectCard.css';
 interface SubjectCardProps {
     children:string;
     icon:ReactNode;
-    variant:'Default' | 'Inverse';
+    variant?:'Default' | 'Inverse';
 }
-export default function SubjectCard({children,icon,variant}:SubjectCardProps){
+export default function SubjectCard({children,icon,variant='Default'}:SubjectCardProps){
     return (
         <div className="cardWrapper" style={{flexDirection: `${variant==='Inverse' ? 'row-reverse' : 'row'}`}}>
             <div>
