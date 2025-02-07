@@ -4,6 +4,8 @@
     box-sizing: border-box;
     font-family: "Montserrat Alternates",serif;
     color: var(--richBlack);
+    /* for the smooth theme changing */
+    transition: var(--mediumTransition);
 }
 h1{
     font-size: 48px;

@@ -9,12 +9,31 @@ import Header from './components/frames/header/Header'
 import Footer from './components/frames/footer/Footer'
 import './App.css'
 import './variables.css'
-function App() {
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from './state/store'
+import { setTheme } from './state/settingsSlice'
 
+function App() {
+  const theme = useSelector((state:RootState) => state.settingsStore.currentTheme)
+  const user= useSelector((state:RootState) => state.userStore)
+  const dispatch = useDispatch()
+  useEffect(() => {
+      const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDarkScheme){
+          dispatch(setTheme('dark'))
+
+        }
+        else{
+          dispatch(setTheme('light'))
+         
+        }
+
+  },[])
   return (
-    <div className="appWrapper ">
+    <div className={`appWrapper ${theme}`} >
       {/*<div className="appWrapper dark-theme"></div>*/}
-      <Header  isLogged={true} role='employer'></Header>
+      <Header  isLogged={user.isLogged} role={`${user.role}`}></Header>
           <Outlet></Outlet>
       <Footer></Footer>
     </div>
