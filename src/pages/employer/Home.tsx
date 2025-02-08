@@ -1,33 +1,17 @@
+import heroImg from '../../assets/heroImg.png';
+import Icons from '../../assets/Icons';
+
 import PageWrapper from '../../components/frames/pageWraper/PageWrapper';
 import { Section } from '../../components/frames/section/Section';
-import { PrimaryButton,SecondaryButton } from '../../components/buttons/Button';
-import SubjectCard from '../../components/cards/SubjectCard';
-import Icons from '../../assets/Icons';
-import heroImg from '../../assets/heroImg.png';
+import { PrimaryButton, SecondaryButton } from '../../components/buttons/Button';
+import SubjectSnippet from '../../components/cards/subjectSnippet/SubjectSnippet';
+import SubjectCard from '../../components/cards/subjectCard/SubjectCard';
 
 import './Home.css';
 export default function Home() {
     return (
         <>
             <PageWrapper>
-                {/* <SubjectCard icon={<Icons icon='Geo'></Icons>}> Test test test</SubjectCard> */}
-                {/* <Icons icon='Geo' size={100}></Icons>
-                    <Icons icon='Ukr'></Icons>
-                    <Icons icon='Eng'></Icons>
-                    <Icons icon='Mat'></Icons>
-                    <Icons icon='Phy'></Icons>
-                    <Icons icon='Che'></Icons>
-                    <Icons icon='Bio'></Icons>
-                    <Icons icon='Inf'></Icons>
-                    <Icons icon='His'></Icons>
-                    <Icons icon='KR'></Icons>
-                    <Icons icon='TT'></Icons>
-                    <Icons icon='DR'></Icons>
-                    <Icons icon='HW'></Icons>
-                    <Icons icon='DT'></Icons>
-                    */}
-                {/* <SubjectCard icon={<Icons icon='DT' size={35}></Icons>} variant='Default'> Test Test Test</SubjectCard> */}
-
                 <Section>
                     <div className="heroBox">
                         <div className="left">
@@ -35,12 +19,12 @@ export default function Home() {
                                 <span>Mind</span><span>Forge</span><br />
                                 кузня твого розуму
                             </h1>
-                            <div className="cardsWraper">
-                                <SubjectCard icon={<Icons size={35} icon='TT'></Icons>}>Репетиторсвтво</SubjectCard>
-                                <SubjectCard icon={<Icons size={35} icon='HW'></Icons>}>Домашні роботи</SubjectCard>
-                                <SubjectCard icon={<Icons size={35} icon='KR'></Icons>}>Контрольні роботи</SubjectCard>
-                                <SubjectCard icon={<Icons size={35} icon='DT'></Icons>}>Складні теми</SubjectCard>
-                                <SubjectCard icon={<Icons size={35} icon='DR'></Icons>}>Дипломні роботи</SubjectCard>
+                            <div className="snippetsWraper">
+                                <SubjectSnippet title='Репетиторство'><Icons size={35} icon='TT'></Icons></SubjectSnippet>
+                                <SubjectSnippet title='Домашні роботи'><Icons size={35} icon='HW'></Icons></SubjectSnippet>
+                                <SubjectSnippet title='Контрольні роботи'><Icons size={35} icon='KR'></Icons></SubjectSnippet>
+                                <SubjectSnippet title='Комплексні теми'><Icons size={35} icon='DT'></Icons></SubjectSnippet>
+                                <SubjectSnippet title='Дипломні роботи'><Icons size={35} icon='DR'></Icons></SubjectSnippet>
                             </div>
                             <div className="buttonsWrapper">
                                 <PrimaryButton>Знайти фахівця</PrimaryButton>
@@ -52,7 +36,22 @@ export default function Home() {
                         </div>
                     </div>
                 </Section>
-                    
+                <Section><div className="subjectsBox">
+                    <h1>Доступні предмети на сайті:</h1>
+                    <div className="cardsFrame">
+                        <SubjectCard title='Математика' link='#'> <Icons size={100} icon='Mat' ></Icons></SubjectCard>
+                        <SubjectCard title='Українська мова' link='#'> <Icons size={100} icon='Ukr' ></Icons></SubjectCard>
+                        <SubjectCard title='Англійська мова' link='#'> <Icons size={100} icon='Eng' ></Icons></SubjectCard>
+                        <SubjectCard title='Біологія' link='#'> <Icons size={100} icon='Bio' ></Icons></SubjectCard>
+                        <SubjectCard title='Географія' link='#'> <Icons size={100} icon='Geo' ></Icons></SubjectCard>
+                        <SubjectCard title='Фізика' link='#'> <Icons size={100} icon='Phy' ></Icons></SubjectCard>
+                        <SubjectCard title='Хімія' link='#'> <Icons size={100} icon='Che' ></Icons></SubjectCard>
+                        <SubjectCard title='Історія' link='#'> <Icons size={100} icon='His' ></Icons></SubjectCard>
+                        <SubjectCard title='Інформатика' link='#'> <Icons size={100} icon='Inf' ></Icons></SubjectCard>
+                    </div>
+                        <PrimaryButton link='#' large width={300}>Перейти</PrimaryButton>
+                </div>
+                </Section>
             </PageWrapper>
         </>
     )

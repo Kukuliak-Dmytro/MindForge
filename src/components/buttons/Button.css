@@ -9,7 +9,7 @@
     font-weight: 600;
     padding: 10px 25px;
     border: none;
-    border-radius:12px;
+    border-radius:var(--mediumBorder);
     height: 40px;
     min-width: 40px;
     white-space: nowrap;
@@ -40,4 +40,5 @@
     width: 250px;
     font-size: 24px;
     font-weight: 600;
+    border-radius:var(--largeBorder);
 }

@@ -1,4 +1,4 @@
-.cardWrapper{
+.subjectSnippetWrapper{
     height: 35px;
     width: auto;
     padding: 0px 10px;
@@ -7,7 +7,7 @@
     background-color: var(--whiteBackground);
     display: flex;
     justify-content: space-between;
-    .cardContent{
+    .subjectSnippetContent{
         padding: 10px 0px;
     }
 }

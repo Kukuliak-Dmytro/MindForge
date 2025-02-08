@@ -1,3 +1,4 @@
+/* Section 1 */
 .heroBox {
     display: flex;
     position: relative;
@@ -16,7 +17,7 @@
                 color: var(--primaryColor);
             }
         }
-        .cardsWraper{
+        .snippetsWraper{
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -37,5 +38,24 @@
             top: -60px;
 
         }
+    }
+}
+
+/* Section 2 */
+.subjectsBox{
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    /* align-items: center; */
+    gap: 60px;
+    text-align: center;
+    .cardsFrame{
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 20px;
+
+    }
+    .primaryBtn{
+        margin: auto;
     }
 }
