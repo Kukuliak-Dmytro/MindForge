@@ -59,3 +59,51 @@
         margin: auto;
     }
 }
+/* Section 3 */
+.aboutBox{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
+    .stepsFrame{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        
+    }
+}
+
+/* Section 4 */
+.benefitsBox{
+    display: flex;
+    flex-direction: column;
+      text-align: center;
+      gap: 60px;
+    .benefitsFrame{
+        display: flex;
+        justify-content: space-between;
+        .benefit{
+            height: 700px;
+            width: 316px;
+            background-color: var(--whiteBackground);
+            border-top: 8px solid var(--darkGray);
+            border-radius: 0 0 168px 168px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            img{
+                width: 100%;
+                height: auto;
+            }
+            &.primary{
+                background-color: var(--primaryColor);
+            }
+            &.secondary{
+                background-color: var(--secondaryColor);
+            }
+            &.accent{
+                background-color: var(--accentColor);
+            }
+        }
+    }
+}

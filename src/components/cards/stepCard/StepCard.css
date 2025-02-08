@@ -1,0 +1,31 @@
+.stepCardWrapper{
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    background-color: var(--whiteBackground);
+    border-radius: var(--mediumBorder);
+    box-shadow: var(--doubleShadow);
+    text-align: left;
+    position: relative;
+    .stepCardContent{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .step{
+        position: absolute;
+        right: 34px;
+        top: 0;
+        height: 52px;
+        width: 34px;
+        padding-top: 5px;
+        background-color: var(--accentColor);
+        display: flex;
+        align-items: top;
+        justify-content: center;
+        border-radius: 4px 4px 0 0;
+        -webkit-clip-path: polygon(100% 0, 100% 100%, 50% 100%, 0 100%, 0 0);
+        clip-path: polygon(100% 0, 100% 100%, 50% 75%, 0 100%, 0 0);
+    }
+
+}
