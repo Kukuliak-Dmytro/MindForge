@@ -112,6 +112,14 @@ export default function Home() {
                         <PrimaryButton large link='#'> Створити замовлення</PrimaryButton>
                     </div>
                 </Section>
+                <Section>
+                    <div className="bestEmployees">
+                        <h1>Наші ТОП-фахівці</h1>
+                        <div className="bestEmployeesFrame">
+                            
+                        </div>
+                    </div>
+                </Section>
             </PageWrapper>
         </>
     )
