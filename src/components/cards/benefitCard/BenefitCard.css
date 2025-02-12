@@ -1,0 +1,26 @@
+.benefit{
+            height: 700px;
+            width: 316px;
+            background-color: var(--whiteBackground);
+            border-top: 8px solid var(--darkGray);
+            border-radius: 0 0 168px 168px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            h2{
+                padding-top: 24px;
+            }
+            img{
+                width: 100%;
+                height: auto;
+            }
+            &.primary{
+                background-color: var(--primaryColor);
+            }
+            &.secondary{
+                background-color: var(--secondaryColor);
+            }
+            &.accent{
+                background-color: var(--accentColor);
+            }
+        }

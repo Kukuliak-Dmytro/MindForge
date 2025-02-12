@@ -17,12 +17,14 @@
                 color: var(--primaryColor);
             }
         }
-        .snippetsWraper{
+
+        .snippetsWraper {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
-        .buttonsWrapper{
+
+        .buttonsWrapper {
             display: flex;
             justify-content: space-between;
         }
@@ -42,68 +44,67 @@
 }
 
 /* Section 2 */
-.subjectsBox{
+.subjectsBox {
     display: flex;
     flex-direction: column;
     /* width: 100%; */
     /* align-items: center; */
     gap: 60px;
     text-align: center;
-    .cardsFrame{
-    display: grid;
-    grid-template-columns: 32% 32% 32%;
-    grid-gap: 20px;
+
+    .cardsFrame {
+        display: grid;
+        grid-template-columns: 32% 32% 32%;
+        grid-gap: 20px;
 
     }
-    .primaryBtn{
+
+    .primaryBtn {
         margin: auto;
     }
 }
+
 /* Section 3 */
-.aboutBox{
+.aboutBox {
     display: flex;
     flex-direction: column;
     gap: 60px;
     text-align: center;
-    .stepsFrame{
+
+    .stepsFrame {
         display: flex;
         flex-direction: column;
         gap: 24px;
-        
+
     }
 }
 
 /* Section 4 */
-.benefitsBox{
+.benefitsBox {
     display: flex;
     flex-direction: column;
-      text-align: center;
-      gap: 60px;
-    .benefitsFrame{
+    text-align: center;
+    gap: 60px;
+    .primaryBtn {
+        margin: auto;
+    }
+    .benefitsFrame {
         display: flex;
         justify-content: space-between;
-        .benefit{
-            height: 700px;
-            width: 316px;
-            background-color: var(--whiteBackground);
-            border-top: 8px solid var(--darkGray);
-            border-radius: 0 0 168px 168px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            img{
-                width: 100%;
-                height: auto;
-            }
-            &.primary{
-                background-color: var(--primaryColor);
-            }
-            &.secondary{
-                background-color: var(--secondaryColor);
-            }
-            &.accent{
-                background-color: var(--accentColor);
-            }
-        }
+
+    }
+}
+
+/* Section 5 */
+.bestEmployeesBox {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
+    align-items: center;
+
+    .bestEmployeesFrame {
+        display: flex;
+        gap: 24px;
     }
 }

@@ -10,6 +10,9 @@ import StepCard from '../../components/cards/stepCard/StepCard';
 import benefitsImg1 from '../../assets/benefitsImg1.png';
 import benefitsImg2 from '../../assets/benefitsImg2.png';
 import benefitsImg3 from '../../assets/benefitsImg3.png';
+import BenefitCard from '../../components/cards/benefitCard/BenefitCard';
+import BestEmployeeCard from '../../components/cards/bestEmployeeCard/BestEmployeeCard';
+import Avatar from '../../assets/Avatars';
 import './Home.css';
 export default function Home() {
     return (
@@ -91,33 +94,23 @@ export default function Home() {
                     <div className="benefitsBox">
                         <h1>MindForge - це...</h1>
                         <div className="benefitsFrame">
-                            <div className="benefit primary">
-                                <h2>Швидко</h2>
-                                 <img src={benefitsImg1} alt="" />
-                            </div>
-                           
-                             <div className="benefit secondary">
-                                <h2>Швидко</h2>
-                                <img src={benefitsImg2} alt="" />
-                            </div>
-                            
-                             <div className="benefit accent">
-                                <h2>Швидко</h2>
-                                <img src={benefitsImg3} alt="" />
-
-                            </div>
-                            
+                            <BenefitCard title='Швидко' color='primary' imgSrc={benefitsImg1}></BenefitCard>
+                            <BenefitCard title='Просто' color='secondary' imgSrc={benefitsImg2}></BenefitCard>
+                            <BenefitCard title='Ефективно' color='accent' imgSrc={benefitsImg3}></BenefitCard>
                         </div>
-                      
-                        <PrimaryButton large link='#'> Створити замовлення</PrimaryButton>
+
+                        <PrimaryButton large link='#' width={500}> Створити замовлення</PrimaryButton>
                     </div>
                 </Section>
                 <Section>
-                    <div className="bestEmployees">
+                    <div className="bestEmployeesBox">
                         <h1>Наші ТОП-фахівці</h1>
                         <div className="bestEmployeesFrame">
-                            
+                            <BestEmployeeCard workingSince='14.01.22' rating='4.9/5' name='Смирнова Марія' description='Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів.' ><Avatar id={0}></Avatar></BestEmployeeCard>
+                            <BestEmployeeCard workingSince='12.12.21' rating='4.4/5.0' name='Іваненко Олександр' description='Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички' ><Avatar id={0}></Avatar></BestEmployeeCard>
+                            <BestEmployeeCard workingSince='01.01.24' rating='4.7/5' name='Коваль Вероніка' description='Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ.' ><Avatar id={0}></Avatar></BestEmployeeCard>
                         </div>
+                        <PrimaryButton large width={500} >Каталог фахівців</PrimaryButton>
                     </div>
                 </Section>
             </PageWrapper>
