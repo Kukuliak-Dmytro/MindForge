@@ -27,3 +27,15 @@ export function Section({ title, children }: sectionProps) {
     }
 
 }
+export function SectionInvisible({ title, children }: sectionProps) {
+    {
+        return (
+            <section className='sectionWrapper'>
+                <div className="section invisible">
+                    {children}
+                </div>
+            </section>
+        )
+    }
+
+}

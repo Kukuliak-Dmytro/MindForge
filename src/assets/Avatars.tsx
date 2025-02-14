@@ -1,27 +1,16 @@
 interface avatarProps {
     id: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    size?: number;
 }
-export default function Avatar({ id }: avatarProps) {
+import benefitsImg1 from './benefitsImg1.png';
+export default function Avatar({ id,size }: avatarProps) {
     switch (id) {
         case 0:
-            return <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            return <svg width={size} height={size} viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0.5" y="0.5" width="199" height="199" rx="5.5" fill="#D9D9D9" stroke="#0B0702" />
             </svg>
         case 1:
-            return (<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
-                <g clip-path="url(#clip0_242_4217)">
-                    <rect width="200" height="200" rx="6" fill="url(#pattern0_242_4217)" />
-                </g>
-                <defs>
-                    <pattern id="pattern0_242_4217" patternContentUnits="objectBoundingBox" width="1" height="1">
-                        <use xlinkHref="#image0_242_4217" transform="scale(0.00195312)" />
-                    </pattern>
-                    <clipPath id="clip0_242_4217">
-                        <rect width="200" height="200" fill="white" />
-                    </clipPath>
-
-                </defs>
-            </svg>)
+            return <img src={benefitsImg1} alt="" />
         case 2:
             return <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <rect width="200" height="200" rx="6" fill="url(#pattern0_242_4223)" />

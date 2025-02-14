@@ -42,3 +42,9 @@
     font-weight: 600;
     border-radius:var(--largeBorder);
 }
+
+.icon{
+    width: 40px;
+    padding: 0;
+    margin: 0;
+}

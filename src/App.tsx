@@ -18,18 +18,18 @@ function App() {
   const theme = useSelector((state:RootState) => state.settingsStore.currentTheme)
   const user= useSelector((state:RootState) => state.userStore)
   const dispatch = useDispatch()
-  useEffect(() => {
-      const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (prefersDarkScheme){
-          dispatch(setTheme('dark'))
+  // useEffect(() => {
+  //     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  //       if (prefersDarkScheme){
+  //         dispatch(setTheme('dark'))
 
-        }
-        else{
-          dispatch(setTheme('light'))
+  //       }
+  //       else{
+  //         dispatch(setTheme('light'))
          
-        }
+  //       }
 
-  },[])
+  // },[])
   return (
     <div className={`appWrapper ${theme}`} >
       {/*<div className="appWrapper dark-theme"></div>*/}

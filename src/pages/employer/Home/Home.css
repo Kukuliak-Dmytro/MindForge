@@ -1,5 +1,5 @@
 /* Section 1 */
-.heroBox {
+.heroWrapper {
     display: flex;
     position: relative;
 
@@ -44,7 +44,7 @@
 }
 
 /* Section 2 */
-.subjectsBox {
+.subjectsWrapper {
     display: flex;
     flex-direction: column;
     /* width: 100%; */
@@ -65,7 +65,7 @@
 }
 
 /* Section 3 */
-.aboutBox {
+.aboutWrapper {
     display: flex;
     flex-direction: column;
     gap: 60px;
@@ -80,7 +80,7 @@
 }
 
 /* Section 4 */
-.benefitsBox {
+.benefitsWrapper {
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -95,7 +95,7 @@
 }
 
 /* Section 5 */
-.bestEmployeesBox {
+.bestEmployeesWrapper {
     display: flex;
     flex-direction: column;
     gap: 60px;
@@ -109,7 +109,7 @@
 }
 
 /* Section 6 */
-.reviewsBox{
+.reviewsWrapper{
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -121,7 +121,7 @@
 }
 
 /* Section 7 */
-.callToActionBox{
+.callToActionWrapper{
     height: 100px;
     width: 100%;
     display: flex;

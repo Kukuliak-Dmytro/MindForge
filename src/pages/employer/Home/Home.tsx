@@ -1,26 +1,30 @@
-import heroImg from '../../assets/heroImg.png';
-import Icons from '../../assets/Icons';
+// Assets
+import heroImg from '../../../assets/heroImg.png';
+import Icons from '../../../assets/Icons';
+import benefitsImg1 from '../../../assets/benefitsImg1.png';
+import benefitsImg2 from '../../../assets/benefitsImg2.png';
+import benefitsImg3 from '../../../assets/benefitsImg3.png';
+import Avatar from '../../../assets/Avatars';
 
-import PageWrapper from '../../components/frames/pageWraper/PageWrapper';
-import { Section } from '../../components/frames/section/Section';
-import { PrimaryButton, SecondaryButton } from '../../components/buttons/Button';
-import SubjectSnippet from '../../components/cards/subjectSnippet/SubjectSnippet';
-import SubjectCard from '../../components/cards/subjectCard/SubjectCard';
-import StepCard from '../../components/cards/stepCard/StepCard';
-import benefitsImg1 from '../../assets/benefitsImg1.png';
-import benefitsImg2 from '../../assets/benefitsImg2.png';
-import benefitsImg3 from '../../assets/benefitsImg3.png';
-import BenefitCard from '../../components/cards/benefitCard/BenefitCard';
-import BestEmployeeCard from '../../components/cards/bestEmployeeCard/BestEmployeeCard';
-import Avatar from '../../assets/Avatars';
-import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard';
+// Components
+import PageWrapper from '../../../components/frames/pageWraper/PageWrapper';
+import { Section } from '../../../components/frames/section/Section';
+import { PrimaryButton, SecondaryButton } from '../../../components/buttons/Button';
+import SubjectSnippet from '../../../components/cards/subjectSnippet/SubjectSnippet';
+import SubjectCard from '../../../components/cards/subjectCard/SubjectCard';
+import StepCard from '../../../components/cards/stepCard/StepCard';
+import BenefitCard from '../../../components/cards/benefitCard/BenefitCard';
+import BestEmployeeCard from '../../../components/cards/bestEmployeeCard/BestEmployeeCard';
+import TestimonialCard from '../../../components/cards/testimonialCard/TestimonialCard';
+
+// Styles
 import './Home.css';
 export default function Home() {
     return (
         <>
             <PageWrapper>
                 <Section>
-                    <div className="heroBox">
+                    <div className="heroWrapper">
                         <div className="left">
                             <h1>
                                 <span>Mind</span><span>Forge</span><br />
@@ -44,7 +48,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="subjectsBox">
+                    <div className="subjectsWrapper">
                         <h1>Доступні предмети на сайті:</h1>
                         <div className="cardsFrame">
                             <SubjectCard title='Математика' link='#'> <Icons size={100} icon='Mat' ></Icons></SubjectCard>
@@ -61,7 +65,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="aboutBox">
+                    <div className="aboutWrapper">
                         <h1>Як це працює:</h1>
                         <div className="stepsFrame">
                             <StepCard title='Створюй замовлення' content=' Реєструйся, заповнюй мінімальні дані про себе. Далі - все, що стосується замовлення' step={1}>
@@ -92,7 +96,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="benefitsBox">
+                    <div className="benefitsWrapper">
                         <h1>MindForge - це...</h1>
                         <div className="benefitsFrame">
                             <BenefitCard title='Швидко' color='primary' imgSrc={benefitsImg1}></BenefitCard>
@@ -104,7 +108,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="bestEmployeesBox">
+                    <div className="bestEmployeesWrapper">
                         <h1>Наші ТОП-фахівці</h1>
                         <div className="bestEmployeesFrame">
                             <BestEmployeeCard workingSince='14.01.22' rating='4.9/5' name='Смирнова Марія' description='Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів.' ><Avatar id={0}></Avatar></BestEmployeeCard>
@@ -115,7 +119,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="reviewsBox">
+                    <div className="reviewsWrapper">
                 <h1>Відгуки про наших фахівців</h1>
                 <div className="reviewsFrame">
                     <TestimonialCard name="Куцик Оксана" rating="5/5" subject="Математика" description="Відмінний викладач, дуже допоміг!Дуже задоволений роботою з Оксаною! Уроки були зрозумілими, а матеріал поданий цікаво та  структуровано. "  author='Таня'> <Avatar id={0}></Avatar></TestimonialCard>
@@ -126,7 +130,7 @@ export default function Home() {
                     </div>
                 </Section>
                 <Section>
-                    <div className="callToActionBox">
+                    <div className="callToActionWrapper">
                         <h2>Куй знання, змінюй майбутнє</h2>
                         <PrimaryButton large > Створити замовлення</PrimaryButton>
                     </div>

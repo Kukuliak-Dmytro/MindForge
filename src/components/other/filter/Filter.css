@@ -1,0 +1,12 @@
+.filterWrapper{
+    padding: 24px;
+    min-width: 300px;
+    background-color: var(--whiteForeground);
+    box-shadow: var(--doubleShadow);
+    border-radius: var(--mediumBorder);
+    margin-bottom: 16px;
+    .filtersFrame{
+        display: grid;
+        gap: 8px;
+    }
+}
