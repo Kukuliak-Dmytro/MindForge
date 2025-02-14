@@ -1,0 +1,33 @@
+.testimonialCardWrapper{
+    padding: 24px;
+    background-color: var(--whiteBackground);
+    box-shadow: var(--mediumShadow);
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--mediumBorder);
+    gap: 16px;
+    position: relative;
+    .mainInfo{
+        display: flex;
+        gap: 12px;
+        .nameAndRating{
+            gap: 8px;
+        }
+        svg{
+            width: 100px;
+            height: 100px;
+        }
+        
+    }
+    .description{
+        min-height: 200px;
+    }
+    .author{
+            position: absolute;
+            right: 0;
+            bottom: 24px;
+            padding: 0px 24px 0px 8px;
+            background-color: var(--accentColor);
+            border-radius: 6px 0px 0px 6px;
+        }
+}

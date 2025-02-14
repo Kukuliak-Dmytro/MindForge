@@ -13,6 +13,7 @@ import benefitsImg3 from '../../assets/benefitsImg3.png';
 import BenefitCard from '../../components/cards/benefitCard/BenefitCard';
 import BestEmployeeCard from '../../components/cards/bestEmployeeCard/BestEmployeeCard';
 import Avatar from '../../assets/Avatars';
+import TestimonialCard from '../../components/cards/testimonialCard/TestimonialCard';
 import './Home.css';
 export default function Home() {
     return (
@@ -111,6 +112,23 @@ export default function Home() {
                             <BestEmployeeCard workingSince='01.01.24' rating='4.7/5' name='Коваль Вероніка' description='Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ.' ><Avatar id={0}></Avatar></BestEmployeeCard>
                         </div>
                         <PrimaryButton large width={500} >Каталог фахівців</PrimaryButton>
+                    </div>
+                </Section>
+                <Section>
+                    <div className="reviewsBox">
+                <h1>Відгуки про наших фахівців</h1>
+                <div className="reviewsFrame">
+                    <TestimonialCard name="Куцик Оксана" rating="5/5" subject="Математика" description="Відмінний викладач, дуже допоміг!Дуже задоволений роботою з Оксаною! Уроки були зрозумілими, а матеріал поданий цікаво та  структуровано. "  author='Таня'> <Avatar id={0}></Avatar></TestimonialCard>
+                    <TestimonialCard name="Подолов Артем" rating="4.8/5" subject="Фізика" description="Фахівець професійно та відповідально підходить до занять. Артем допоміг мені розібратися зі складними темами та підготуватися до іспитів. " author='Микола'><Avatar id={0}></Avatar></TestimonialCard>
+                    <TestimonialCard name="Хартій Ангеліна " rating="4.9/5" subject="Хімія" description="Дипломна робота пані Ангеліни перевершила всі мої очікування! Незважаючи на те, що текст дуж епосто розуміти, він вийшов надзвичайно професійним! Рекомендую!" author='Анастатія'><Avatar id={0}></Avatar> </TestimonialCard>
+                </div>
+                <PrimaryButton width={350} large> Каталог фахівців</PrimaryButton>
+                    </div>
+                </Section>
+                <Section>
+                    <div className="callToActionBox">
+                        <h2>Куй знання, змінюй майбутнє</h2>
+                        <PrimaryButton large > Створити замовлення</PrimaryButton>
                     </div>
                 </Section>
             </PageWrapper>

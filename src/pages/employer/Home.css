@@ -85,12 +85,11 @@
     flex-direction: column;
     text-align: center;
     gap: 60px;
-    .primaryBtn {
-        margin: auto;
-    }
+    align-items: center;
     .benefitsFrame {
         display: flex;
         justify-content: space-between;
+        width: 100%;
 
     }
 }
@@ -107,4 +106,25 @@
         display: flex;
         gap: 24px;
     }
+}
+
+/* Section 6 */
+.reviewsBox{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 60px;
+    .reviewsFrame{
+        display: flex;
+        gap: 24px;
+    }
+}
+
+/* Section 7 */
+.callToActionBox{
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--darkGray);
 }
