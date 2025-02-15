@@ -27,7 +27,7 @@ export function Section({ title, children }: sectionProps) {
     }
 
 }
-export function SectionInvisible({ title, children }: sectionProps) {
+export function SectionInvisible({  children }: sectionProps) {
     {
         return (
             <section className='sectionWrapper'>

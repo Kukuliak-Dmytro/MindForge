@@ -14,7 +14,7 @@ export default function SpecialistProfile() {
             <SectionInvisible>
                 <Section title="Профіль фахівця">
                     <div className="avatarWrapper">
-                        <Avatar id={0} size={200}></Avatar>
+                        <Avatar id={1} size={200}></Avatar>
                         <h3>Смирнова Марія</h3>
                         <h4>5.0/5.0</h4>
                         <p>Відгуків: 23</p>
@@ -112,9 +112,9 @@ export default function SpecialistProfile() {
                     <div className="profileReviewsWrapper">
                         <h3>Відгуки</h3>
                         <div className="reviewsFrame">
-                            <ReviewCard author="Олена" date="21.01.2024" avatar={<Avatar id={0} size={100}></Avatar>}content="Дуже задоволена заняттями! Репетитор знайшов підхід до моєї дитини, і вже через кілька тижнів ми побачили прогрес у математиці." rating={4.5}></ReviewCard>
-                            <ReviewCard author="Артем" date="16.06.23" avatar={<Avatar id={0} size={100}></Avatar>}content="Замовив допомогу з контрольними завданнями з фізики. Все зробили якісно та вчасно, хоча хотілося трохи детальніших пояснень." rating={5.0}></ReviewCard>
-                            <ReviewCard author="Анастасія" date="28.01.25" avatar={<Avatar id={0} size={100}></Avatar>}content="Дуже дякую за пояснення складних тем з програмування! Тепер цикли та функції стали для мене зрозумілими. Рекомендую всім!" rating={4.0}></ReviewCard>
+                            <ReviewCard author="Олена" date="21.01.2024" avatar={<Avatar id={2} size={100}></Avatar>}content="Дуже задоволена заняттями! Репетитор знайшов підхід до моєї дитини, і вже через кілька тижнів ми побачили прогрес у математиці." rating={4.5}></ReviewCard>
+                            <ReviewCard author="Артем" date="16.06.23" avatar={<Avatar id={3} size={100}></Avatar>}content="Замовив допомогу з контрольними завданнями з фізики. Все зробили якісно та вчасно, хоча хотілося трохи детальніших пояснень." rating={5.0}></ReviewCard>
+                            <ReviewCard author="Анастасія" date="28.01.25" avatar={<Avatar id={4} size={100}></Avatar>}content="Дуже дякую за пояснення складних тем з програмування! Тепер цикли та функції стали для мене зрозумілими. Рекомендую всім!" rating={4.0}></ReviewCard>
                           </div>
                     </div>
 

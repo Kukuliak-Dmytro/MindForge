@@ -111,20 +111,21 @@ export default function Home() {
                     <div className="bestEmployeesWrapper">
                         <h1>Наші ТОП-фахівці</h1>
                         <div className="bestEmployeesFrame">
-                            <BestEmployeeCard workingSince='14.01.22' rating='4.9/5' name='Смирнова Марія' description='Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів.' ><Avatar id={0}></Avatar></BestEmployeeCard>
-                            <BestEmployeeCard workingSince='12.12.21' rating='4.4/5.0' name='Іваненко Олександр' description='Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички' ><Avatar id={0}></Avatar></BestEmployeeCard>
-                            <BestEmployeeCard workingSince='01.01.24' rating='4.7/5' name='Коваль Вероніка' description='Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ.' ><Avatar id={0}></Avatar></BestEmployeeCard>
+                            <BestEmployeeCard workingSince='14.01.22' rating='4.9/5' name='Смирнова Марія' description='Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів.' ><Avatar id={1} size={128}></Avatar></BestEmployeeCard>
+                            <BestEmployeeCard workingSince='12.12.21' rating='4.4/5.0' name='Іваненко Олександр' description='Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички' ><Avatar id={2} size={128}></Avatar></BestEmployeeCard>
+                            <BestEmployeeCard workingSince='01.01.24' rating='4.7/5' name='Коваль Вероніка' description='Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ.' ><Avatar id={3} size={128}></Avatar></BestEmployeeCard>
                         </div>
                         <PrimaryButton large width={500} >Каталог фахівців</PrimaryButton>
                     </div>
                 </Section>
                 <Section>
                     <div className="reviewsWrapper">
+                        
                 <h1>Відгуки про наших фахівців</h1>
                 <div className="reviewsFrame">
-                    <TestimonialCard name="Куцик Оксана" rating="5/5" subject="Математика" description="Відмінний викладач, дуже допоміг!Дуже задоволений роботою з Оксаною! Уроки були зрозумілими, а матеріал поданий цікаво та  структуровано. "  author='Таня'> <Avatar id={0}></Avatar></TestimonialCard>
-                    <TestimonialCard name="Подолов Артем" rating="4.8/5" subject="Фізика" description="Фахівець професійно та відповідально підходить до занять. Артем допоміг мені розібратися зі складними темами та підготуватися до іспитів. " author='Микола'><Avatar id={0}></Avatar></TestimonialCard>
-                    <TestimonialCard name="Хартій Ангеліна " rating="4.9/5" subject="Хімія" description="Дипломна робота пані Ангеліни перевершила всі мої очікування! Незважаючи на те, що текст дуж епосто розуміти, він вийшов надзвичайно професійним! Рекомендую!" author='Анастатія'><Avatar id={0}></Avatar> </TestimonialCard>
+                    <TestimonialCard name="Куцик Оксана" rating="5/5" subject="Математика" description="Відмінний викладач, дуже допоміг!Дуже задоволений роботою з Оксаною! Уроки були зрозумілими, а матеріал поданий цікаво та  структуровано. "  author='Таня'> <Avatar id={4} size={64}></Avatar></TestimonialCard>
+                    <TestimonialCard name="Подолов Артем" rating="4.8/5" subject="Фізика" description="Фахівець професійно та відповідально підходить до занять. Артем допоміг мені розібратися зі складними темами та підготуватися до іспитів. " author='Микола'><Avatar id={5} size={64}></Avatar></TestimonialCard>
+                    <TestimonialCard name="Хартій Ангеліна " rating="4.9/5" subject="Хімія" description="Дипломна робота пані Ангеліни перевершила всі мої очікування! Незважаючи на те, що текст дуж епосто розуміти, він вийшов надзвичайно професійним! Рекомендую!" author='Анастатія'><Avatar id={6} size={64}></Avatar> </TestimonialCard>
                 </div>
                 <PrimaryButton width={350} large> Каталог фахівців</PrimaryButton>
                     </div>
