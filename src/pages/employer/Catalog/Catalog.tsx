@@ -4,6 +4,7 @@ import Filter from "../../../components/other/filter/Filter"
 import "./Catalog.css"
 import { EmployeeCard } from "../../../components/cards/employeeCard/EmployeeCard"
 import Avatar from "../../../assets/Avatars"
+import Pagination from "../../../components/frames/pagination/Pagination"
 export default function Catalog() {
 
     return (
@@ -23,7 +24,7 @@ export default function Catalog() {
                                 <EmployeeCard name="Коваль Андрій" rating='4/5' avatar={<Avatar size={100} id={0}></Avatar>} education="Доктор наук (PhD) з інформаційних технологій, університет 'Київ-Могилянська академія'" worksSince="На сайті з 14.01" description="Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички."></EmployeeCard>
                             </div>
                         </div>
-                        {/* pagination here */}
+                    {/* <Pagination></Pagination> */}
                     </div>
                 </SectionInvisible>
             </PageWrapper>

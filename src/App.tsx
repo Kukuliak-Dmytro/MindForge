@@ -9,15 +9,16 @@ import Header from './components/frames/header/Header'
 import Footer from './components/frames/footer/Footer'
 import './App.css'
 import './variables.css'
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+// import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import { RootState } from './state/store'
-import { setTheme } from './state/settingsSlice'
+// import { setTheme } from './state/settingsSlice'
 
 function App() {
   const theme = useSelector((state:RootState) => state.settingsStore.currentTheme)
   const user= useSelector((state:RootState) => state.userStore)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // useEffect(() => {
   //     const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
   //       if (prefersDarkScheme){

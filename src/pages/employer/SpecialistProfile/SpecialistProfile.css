@@ -1,0 +1,97 @@
+.specialistProfilePage{
+/* Section 1 */
+.avatarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* Section 2 */
+.specializationWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 120px;
+
+    .subjects,
+    .categories {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+
+        span {
+            display: grid;
+            gap: 12px;
+        }
+    }
+}
+
+/* Section 3 */
+.descriptionWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .separator {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .accentHeader {
+            position: relative;
+            width: max-content;
+            height: 30px;
+
+            h4 {
+                z-index: 2;
+                position: relative;
+
+            }
+
+            span {
+                position: absolute;
+                z-index: 0;
+                background-color: var(--accentColor);
+                width: calc(100% + 72px);
+                height: 30px;
+                top: 0;
+                left: -60px;
+                /* padding: 0px 8px 0px 60px; */
+                border-radius: 0px 6px 6px 0px;
+            }
+        }
+
+        .line {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+/* Section 4 */
+.priceListWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .priceListFrame{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Section 5 */
+.profileReviewsWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    .reviewsFrame{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+       
+}
+}

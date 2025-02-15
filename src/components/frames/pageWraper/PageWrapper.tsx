@@ -5,11 +5,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '../../../state/store';
 import { setTheme } from '../../../state/settingsSlice';
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
-export default function PageWrapper({ children }: { children: React.ReactNode }) {
+interface PageWrapperProps {
+    children: React.ReactNode;
+    className: string;
+}
+
+export default function PageWrapper({ children,className }: PageWrapperProps) {
     const dispatch = useDispatch<AppDispatch>();
     const theme = useSelector((state: RootState) => state.settingsStore.currentTheme);
     return (
-        <div className='pageWrapper'>
+        <div className={`${className} pageWrapper`}>
             {children}
             <div className={`themeToggle ${theme}`} onClick={() => { dispatch(setTheme(`${theme == "dark" ? "light" : "dark"}`)) }}>
                 <div className="toggleWrapper">

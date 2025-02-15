@@ -22,7 +22,7 @@ import './Home.css';
 export default function Home() {
     return (
         <>
-            <PageWrapper>
+            <PageWrapper className='homepageEmployer'>
                 <Section>
                     <div className="heroWrapper">
                         <div className="left">
