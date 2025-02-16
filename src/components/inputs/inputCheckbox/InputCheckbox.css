@@ -6,28 +6,23 @@
     border-radius: var(--smallBorder);
     box-shadow: var(--smallShadow);
     cursor: pointer;
-}
 
-.checkbox {
-    display: none;
-}
+    .checkbox {
+        display: none;
 
-.newCheckbox {
-    width: 20px;
-    height: 20px;
-   transition: var(--fastTransition);
-   
-    background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="5.5" fill="%23F9F9F0" stroke="%23373737"/></svg>');
-    /* box-sizing: border-box; */
-    
-}
+        &:checked + .newCheckbox {
+            background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="5.5" fill="%2399E1D9" stroke="%23373737"/><path d="M16.8978 6.17992L9.10309 13.4219C8.90602 13.605 8.59941 13.5994 8.4092 13.4092L4.58333 9.58325" stroke="%23373737" stroke-width="1.5" stroke-linecap="round"/></svg>');
+        }
+    }
 
-.checkbox:checked+.newCheckbox {
+    .newCheckbox {
+        width: 20px;
+        height: 20px;
+        transition: var(--fastTransition);
+        background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="5.5" fill="%23F9F9F0" stroke="%23373737"/></svg>');
+    }
 
-    background-image: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="0.5" y="0.5" width="19" height="19" rx="5.5" fill="%2399E1D9" stroke="%23373737"/><path d="M16.8978 6.17992L9.10309 13.4219C8.90602 13.605 8.59941 13.5994 8.4092 13.4092L4.58333 9.58325" stroke="%23373737" stroke-width="1.5" stroke-linecap="round"/></svg>');
-}
-
-
-label {
-    cursor: pointer;
+    label {
+        cursor: pointer;
+    }
 }

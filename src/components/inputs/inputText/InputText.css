@@ -1,0 +1,20 @@
+.inputTextWrapper{
+    display: flex;
+    flex-direction: column;
+    /* min-width: 200px; */
+    /* width: 100%; */
+    label{
+        padding-left: 17px;
+        padding-bottom: 4px;
+    }
+    input{
+        height: 50px;
+        /* min-width: 200px; */
+        /* width: 100%; */
+        border-radius: var(--mediumBorder);
+        padding-left: 16px;
+        font-size: 16px;
+        border: 1px solid var(--darkGray);
+        box-shadow: var(--smallShadow);
+    }
+}

@@ -2,9 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./pages/employer/Home/Home.tsx"
-import Catalog from './pages/employer/Catalog/Catalog.tsx';
-import SpecialistProfile from './pages/employer/SpecialistProfile/SpecialistProfile.tsx';
+import Home from "./pages/employer/home/Home.tsx"
+import Catalog from './pages/employer/catalog/Catalog.tsx';
+import SpecialistProfile from './pages/employer/specialistProfile/SpecialistProfile.tsx';
+import MyProfile from './pages/employer/myProfile/MyProfile.tsx';
 import { store } from './state/store.ts';
 import { Provider } from 'react-redux';
 import './globalStyles.css'
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path:'/MindForge/catalog/:id',
         element:<SpecialistProfile/>
+      },
+      {
+        path:'/MindForge/myProfile',
+        element:<MyProfile/>
       }
 
     ]
