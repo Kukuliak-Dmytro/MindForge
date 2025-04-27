@@ -1,65 +1,105 @@
-# React + TypeScript + Vite
+# MindForge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web platform for connecting employers with specialists.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: Next.js
+- **Styling**: Tailwind CSS with Shadcn/UI
+- **State Management**: Redux Toolkit
+- **Language**: TypeScript
 
-# Author
+## Project Structure
 
-I made this for myself by folliwing https://github.com/ErickKS/vite-react-router. Shout out to Erick!
-You can fork the repo, but I don`t guarantee that it will work fine. If you encounter any issues, head to the original repo made by Erick and follow his tutorial.
+```
+mindforge/
+├── src/
+│   ├── app/                          # Next.js App Router
+│   │   ├── layout.tsx                # Root layout component
+│   │   ├── page.tsx                  # Home page
+│   │   └── employer/                 # Employer routes
+│   │       ├── catalog/              # Catalog page for employers
+│   │       ├── home/                 # Employer home page
+│   │       ├── my-profile/           # Employer profile management
+│   │       └── specialist-profile/   # Specialist profile view
+│   ├── components/                   # Reusable components
+│   │   ├── ui/                       # UI components from Shadcn/UI
+│   │   ├── layout/                   # Layout components (Header, Footer, etc.)
+│   │   ├── cards/                    # Card components
+│   │   └── inputs/                   # Input components
+│   ├── lib/                          # Utility libraries
+│   │   ├── hooks/                    # Custom React hooks
+│   │   ├── utils/                    # Utility functions
+│   │   └── api/                      # API client functions
+│   ├── styles/                       # Global styles and theme
+│   └── types/                        # TypeScript type definitions
+├── public/                           # Static assets
+├── components.json                   # Shadcn UI configuration
+└── next.config.js                    # Next.js configuration
+```
 
-# Features
+## Getting Started
 
-This is a React app made with the latest version of Vite. It is written in TypeScript. The React Router is added as well, to navigate between pages. The workflow is set to deploy to GitHub Pages on push to the main branch. You can change this behavior by editing the .github/workflows/deploy.yml file. 
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Make sure Tailwind CSS dependencies are properly installed:
+   ```bash
+   npm install -D tailwindcss@latest postcss autoprefixer
+   ```
+4. Install required UI dependencies:
+   ```bash
+   npm install class-variance-authority clsx tailwind-merge
+   ```
+5. Install Redux dependencies:
+   ```bash
+   npm install @reduxjs/toolkit react-redux
+   ```
+6. Start the development server:
+   ```bash
+   npm run dev
+   ```
+7. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-# Steps
+## Migration Notes
 
-You'll have to do some changes in order for this repo to work:
+This project is a migration from a React/Vite/CSS Modules application to Next.js with Tailwind CSS and Shadcn/UI components.
 
-# 1. Clone the repo to your machine
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-To do that, pull up your terminal in VS Code, (while you have chosen the folder where you want to get this repo copied) and enter 
+## Getting Started
 
-`git clone <name-of-the-cloned-repo>`
+First, run the development server:
 
-this will clone the repo to your local machine and initialize git.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-# 2. Install node packages
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-If you have Node and npm installed, type in terminal:
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-`npm i`
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-This will install all the required node packages
-If you're not sure whether or not you have them installed, type in the terminal:
-`node -v`
-`npm -v`
+## Learn More
 
-As a result, you should get the versions. If you haven't installed them yet, visit https://docs.npmjs.com/downloading-and-installing-node-js-and-npm for instructions on doing so.
+To learn more about Next.js, take a look at the following resources:
 
-# 3. Grant workflow the necessary permisions
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-Go to the settings of the copied repo, on the left sidebar under 'Code and automation' choose 'Actions', then 'General', scrolldown to the end and to the 'Workflow permissions' choose 'Read and Write permissions'
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-# 4. Change the URL 
+## Deploy on Vercel
 
-You'll have to change the url in several places. 
-  - Go to vite.config.ts and change the value of 'base'. Instead of 'vite-react-router-template' type the name of your repo.
-  - Go to package.json adn change the value of 'homepage' in the same manner
-  - Go to main.tsx and change the paths for react router in the same manner.
-  - 'vite-react-router-template' used to serve as the base url. Now you've replaced it with the name of your repo. When you use <Link> to redirect, make sure to redirect to /<YourRepoName>/ as the base
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-# 5. Push to remote
-
-You`ve successfully configured all the files. Now push these changes to GitHub:
-
-`git commit -m "Initial configutation"`
-`git push origin main`
-
-The workflow is automated to deploy on `push` to the `main` branch. To check the builds, go to Actions tab, and read the info.
-
-# You're set~!
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
