@@ -22,7 +22,7 @@ export default function Home() {
           <div className="flex flex-col gap-4 lg:max-w-[50%]">
             <h1>
               <span className="text-secondary">Mind</span><span className="text-primary">Forge</span><br />
-              кузня твого розуму
+              Кузня твого розуму
             </h1>
 
             <div className="flex flex-col gap-2 mb-4">

@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { PageWrapper } from "@/components/layout/page-wrapper";
-import { SectionInvisible } from "@/components/layout/section";
+import { Section } from "@/components/layout/section";
 import { Filter } from "@/components/ui/filter";
 import { EmployeeCard } from "@/components/cards/employee-card";
 import Avatar from "public/assets/avatars/Avatars";
-import Icons from "@/components/ui/icons";
+import Pagination from "@/components/layout/pagination";
 
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
@@ -76,7 +76,7 @@ export default function Catalog() {
 
     return (
         <PageWrapper>
-            <SectionInvisible>
+            <Section>
                 <div className="flex gap-[100px]">
                     <div className="flex flex-col gap-4 whitespace-nowrap">
                         <h3>Пошук фахівців</h3>
@@ -129,7 +129,8 @@ export default function Catalog() {
                     </div>
                     {/* <Pagination></Pagination> */}
                 </div>
-            </SectionInvisible>
+                 <Pagination totalPages={20} currentPage={2} onPageChange={()=>{console.log('Page changed!')}}></Pagination>
+            </Section>
         </PageWrapper>
     );
 } 
