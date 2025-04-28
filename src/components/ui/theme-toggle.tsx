@@ -1,27 +1,40 @@
-"use client";
 
-import { Sun, Moon } from "lucide-react";
-import { useTheme } from "@/lib/theme-provider";
-
+import { useEffect } from "react";
+import { useTheme } from 'next-themes'
+import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
 export function ThemeToggle() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  useEffect(() => {
+    // Ensure component is mounted before rendering theme-specific content
+    setTheme(theme || "light");
+  }, [theme, setTheme]);
+  const toggleTheme=()=>{
+    if (theme === "light") {
+      setTheme("dark");
+    }
+    else {
+      setTheme("light");
+    }
 
-  const handleClick = () => {
-    console.log("Theme toggle clicked, current theme:", theme);
-    toggleTheme();
-  };
+  }
 
   return (
-    <button
-      onClick={handleClick}
-      className="w-10 h-10 rounded-medium flex items-center justify-center bg-primary shadow-small hover:shadow-medium transition-all duration-300"
-      aria-label="Toggle theme"
-    >
-      {theme === "light" ? (
-        <Moon className="w-5 h-5 text-white-fg" />
-      ) : (
-        <Sun className="w-5 h-5 text-white-fg" />
-      )}
-    </button>
+      <div className="fixed bottom-4 right-4 z-30">
+        <div 
+          className="relative bg-gray-500 rounded-full cursor-pointer flex items-center justify-between p-[5px] h-[26px] w-[50px] scale-[1.2] shadow-small"
+          onClick={toggleTheme}
+        >
+          <IoSunnyOutline className="text-white-fg" />
+          <IoMoonOutline className="text-white-fg" />
+          <div 
+            className={`absolute top-[2px] left-[2px] h-[22px] w-[22px] rounded-full transition-transform duration-300 
+              ${theme === 'light' 
+                ? 'translate-x-0 bg-rich-black shadow-inner-light' 
+                : 'translate-x-[24px] bg-white-fg shadow-inner-dark'
+              }`}
+          ></div>
+        </div>
+      </div>
+
   );
-} 
+}

@@ -28,10 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={montserratAlternates.variable}>
+    <html lang="en" className={montserratAlternates.variable} suppressHydrationWarning>
       <body className={montserratAlternates.className}>
         <Providers>
-          <div className="flex flex-col items-center gap-[60px] min-h-screen bg-white-bg">
+          <div className="flex flex-col items-center gap-[60px] min-h-screen bg-white-bg dark:bg-[color:var(--color-white-bg)]">
             <Header />
             <main className="w-full flex-grow">{children}</main>
             <Footer />
