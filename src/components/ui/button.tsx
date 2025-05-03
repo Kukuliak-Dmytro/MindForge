@@ -12,6 +12,8 @@ const buttonVariants = cva(
         primary: "bg-primary text-rich-black",
         secondary: "bg-secondary text-rich-black",
         danger: "bg-danger text-white-fg",
+        outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        ghost: "bg-transparent hover:bg-accent hover:text-accent-foreground",
       },
       size: {
         default: "text-lg py-2.5 px-6",
@@ -79,4 +81,6 @@ export function SecondaryButton(props: Omit<ButtonProps, 'variant'>) {
 
 export function DangerButton(props: Omit<ButtonProps, 'variant'>) {
   return <Button variant="danger" {...props} />;
-} 
+}
+
+export { buttonVariants };

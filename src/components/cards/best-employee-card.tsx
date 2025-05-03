@@ -23,7 +23,7 @@ export function BestEmployeeCard({
         <p className="p2">На сайті з {workingSince}</p>
         <h6>{rating}</h6>
       </div>
-      <div>{description}</div>
+      <div><p>{description}</p></div>
     </div>
   );
 } 
