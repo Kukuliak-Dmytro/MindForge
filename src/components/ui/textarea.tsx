@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  title: string;
+  title?: string;
   id: string;
   placeholder: string;
   defaultValue?: string;
@@ -15,13 +15,15 @@ export interface TextareaProps
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ title, id, placeholder, defaultValue, className, onChange, ...props }, ref) => {
     return (
-      <div className="flex flex-col">
-        <label 
-          htmlFor={id} 
-          className="pl-4 pb-1"
-        >
-          {title}
-        </label>
+      <div className="flex flex-col w-full">
+        {title && (
+          <label 
+            htmlFor={id} 
+            className="pl-4 pb-1"
+          >
+            {title}
+          </label>
+        )}
         <textarea
           id={id}
           ref={ref}
@@ -29,8 +31,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           defaultValue={defaultValue}
           onChange={onChange}
           className={cn(
-            "min-h-16 rounded-medium px-4 py-2 text-base border border-primary-border",
-            "shadow-small focus:outline-none focus:ring-2 focus:ring-accent",
+            "min-h-16 w-full rounded-medium px-4 py-2 text-base border border-primary-border",
+            "shadow-small focus:outline-none focus:ring-2 focus:ring-accent resize-none",
             className
           )}
           {...props}

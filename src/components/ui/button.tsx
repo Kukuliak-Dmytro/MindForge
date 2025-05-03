@@ -34,6 +34,7 @@ export interface ButtonProps
   children: React.ReactNode;
   href?: string;
   width?: number;
+  height?: number;
 }
 
 export function Button({
@@ -43,6 +44,7 @@ export function Button({
   children,
   href,
   width,
+  height,
   ...props
 }: ButtonProps) {
   const styles = cn(buttonVariants({ variant, size }), className);
@@ -52,7 +54,10 @@ export function Button({
       <Link 
         href={href} 
         className={styles} 
-        style={width ? { width: `${width}px` } : undefined}
+        style={{ 
+          ...(width ? { width: `${width}px` } : {}), 
+          ...(height ? { height: `${height}px` } : {}) 
+        }}
       >
         {children}
       </Link>
@@ -62,7 +67,11 @@ export function Button({
   return (
     <button 
       className={styles} 
-      style={width ? { width: `${width}px` } : undefined} 
+      style={{ 
+        ...(width ? { width: `${width}px` } : {}), 
+        ...(height ? { height: `${height}px` } : {}) 
+      }}
+      
       {...props}
     >
       {children}

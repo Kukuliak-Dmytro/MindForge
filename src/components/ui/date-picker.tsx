@@ -29,7 +29,7 @@ export default function RadioDate() {
                     <button 
                         type="button"
                         className={cn(
-                            "w-[240px] flex space-between items-center justify-between rounded-medium border px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer h-[50px]",
+                            "w-[240px] flex justify-between items-center rounded-medium border px-3 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-accent disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer h-[50px]",
                             !date && "text-muted-foreground"
                         )}
                     >

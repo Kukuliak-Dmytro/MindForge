@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils"
 
 export interface InputTextProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  title: string;
+  title?: string;
   id: string;
   placeholder: string;
   defaultValue?: string;
   type?: "text" | "email" | "password" | "tel";
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
 }
 
 const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
@@ -19,7 +20,7 @@ const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
       <div className="flex flex-col">
         <label 
           htmlFor={id} 
-          className="pl-4 pb-1"
+          className={`pl-4 ${title ? "pb-1" : ""}`}
         >
           {title}
         </label>
