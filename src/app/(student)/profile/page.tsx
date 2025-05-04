@@ -10,17 +10,24 @@ import { useFormState } from "@/lib/hooks/use-form-state";
 
 export default function StudentProfile() {
     const [isEditing, setIsEditing] = useState(false);
-    const { formState: myData, handleChange: setMyData } = useFormState({
+    const { formState, handleChange, resetForm } = useFormState({
         name: "Марія",
         surname: "Смирнова",
         phone: "+380 99 999 99 99",
         email: "email@example.com",
     });
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
+    const handleSave = () => {
+        // Here you would typically save the data to your backend
         setIsEditing(false);
     };
+
+    const handleCancel = () => {
+        resetForm(); // Reset to original values
+        setIsEditing(false);
+    };
+
+    const sharedFieldStyles = "w-full bg-white-bg shadow-small rounded-medium";
 
     return (
         <PageWrapper>
@@ -35,78 +42,61 @@ export default function StudentProfile() {
                         </div>
                     </div>
                     <div className="w-full">
-                        {isEditing ? (
-                            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6">
-                                <InputText
-                                    defaultValue={myData.name}
-                                    id="name"
-                                    title="Ім'я"
-                                    placeholder="Ваше ім'я"
-                                    onChange={setMyData}
-                                />
-                                <InputText
-                                    defaultValue={myData.surname}
-                                    id="surname"
-                                    title="Прізвище"
-                                    placeholder="Ваше прізвище"
-                                    onChange={setMyData}
-                                />
-                                <InputText
-                                    defaultValue={myData.phone}
-                                    id="phone"
-                                    title="Телефон"
-                                    placeholder="Ваш телефон"
-                                    onChange={setMyData}
-                                    type="tel"
-                                />
-                                <InputText
-                                    defaultValue={myData.email}
-                                    id="email"
-                                    title="Email"
-                                    placeholder="Ваш Email"
-                                    onChange={setMyData}
-                                    type="email"
-                                />
-                                <div className="col-span-2 justify-self-end">
-                                    <SecondaryButton>Зберегти</SecondaryButton>
-                                </div>
-                            </form>
-                        ) : (
-                            <div className="grid grid-cols-2 gap-6">
-                                <div className="flex flex-col gap-1">
-                                    <p className="pl-4 text-sm">Ім'я</p>
-                                    <h5 className="h-[50px] w-full flex items-center bg-white shadow-small pl-4 rounded-medium">
-                                        {myData.name}
-                                    </h5>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="pl-4 text-sm">Прізвище</p>
-                                    <h5 className="h-[50px] w-full flex items-center bg-white shadow-small pl-4 rounded-medium">
-                                        {myData.surname}
-                                    </h5>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="pl-4 text-sm">Телефон</p>
-                                    <h5 className="h-[50px] w-full flex items-center bg-white shadow-small pl-4 rounded-medium">
-                                        {myData.phone}
-                                    </h5>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="pl-4 text-sm">Email</p>
-                                    <h5 className="h-[50px] w-full flex items-center bg-white shadow-small pl-4 rounded-medium">
-                                        {myData.email}
-                                    </h5>
-                                </div>
-                                <div className="col-span-2 justify-self-end">
-                                    <PrimaryButton onClick={() => { setIsEditing(true); }}>
+                        <div className="grid grid-cols-2 gap-6">
+                            <InputText
+                                value={formState.name}
+                                id="name"
+                                title="Ім'я"
+                                placeholder="Ваше ім'я"
+                                onChange={handleChange}
+                                className={sharedFieldStyles}
+                                readOnly={!isEditing}
+                            />
+                            <InputText
+                                value={formState.surname}
+                                id="surname"
+                                title="Прізвище"
+                                placeholder="Ваше прізвище"
+                                onChange={handleChange}
+                                className={sharedFieldStyles}
+                                readOnly={!isEditing}
+                            />
+                            <InputText
+                                value={formState.phone}
+                                id="phone"
+                                title="Телефон"
+                                placeholder="Ваш телефон"
+                                onChange={handleChange}
+                                type="tel"
+                                className={sharedFieldStyles}
+                                readOnly={!isEditing}
+                            />
+                            <InputText
+                                value={formState.email}
+                                id="email"
+                                title="Email"
+                                placeholder="Ваш Email"
+                                onChange={handleChange}
+                                type="email"
+                                className={sharedFieldStyles}
+                                readOnly={!isEditing}
+                            />
+                            <div className="col-span-2 justify-self-end flex gap-4">
+                                {isEditing ? (
+                                    <>
+                                        <SecondaryButton onClick={handleCancel}>Скасувати</SecondaryButton>
+                                        <PrimaryButton onClick={handleSave}>Зберегти</PrimaryButton>
+                                    </>
+                                ) : (
+                                    <PrimaryButton onClick={() => setIsEditing(true)}>
                                         Редагувати
                                     </PrimaryButton>
-                                </div>
+                                )}
                             </div>
-                        )}
+                        </div>
                     </div>
                 </div>
             </Section>
         </PageWrapper>
     );
-} 
+}

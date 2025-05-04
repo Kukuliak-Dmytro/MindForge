@@ -8,12 +8,14 @@ export interface TextareaProps
   title?: string;
   id: string;
   placeholder: string;
+  value?: string;
   defaultValue?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  readOnly?: boolean;
 }
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ title, id, placeholder, defaultValue, className, onChange, ...props }, ref) => {
+  ({ title, id, placeholder, value, defaultValue, className, onChange, readOnly, ...props }, ref) => {
     return (
       <div className="flex flex-col w-full">
         {title && (
@@ -28,11 +30,15 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           id={id}
           ref={ref}
           placeholder={placeholder}
+          value={value}
           defaultValue={defaultValue}
           onChange={onChange}
+          readOnly={readOnly}
           className={cn(
-            "min-h-16 w-full rounded-medium px-4 py-2 text-base border border-primary-border",
-            "shadow-small focus:outline-none focus:ring-2 focus:ring-accent resize-none",
+            "min-h-16 w-full rounded-medium px-4 py-2 text-base resize-none",
+            readOnly
+              ? "bg-transparent cursor-default outline-none border-none"
+              : "border border-primary-border shadow-small focus:outline-none focus:ring-2 focus:ring-accent",
             className
           )}
           {...props}

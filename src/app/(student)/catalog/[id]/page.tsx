@@ -36,17 +36,17 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         <div className="flex flex-col gap-4 w-full">
                             <h3>Предмети</h3>
                             <div className="grid gap-3">
-                                <SubjectSnippet title='Математика'><Icons icon='Mat' size={35} /></SubjectSnippet>
-                                <SubjectSnippet title='Хімія'><Icons icon='Che' size={35} /></SubjectSnippet>
-                                <SubjectSnippet title='Фізика'><Icons icon='Phy' size={35} /></SubjectSnippet>
+                                <SubjectSnippet title='Математика' icon='Mat'></SubjectSnippet>
+                                <SubjectSnippet title='Хімія' icon='Che' ></SubjectSnippet>
+                                <SubjectSnippet title='Фізика' icon='Phy' ></SubjectSnippet>
                             </div>
                         </div>
                         <div className="flex flex-col gap-4 w-full">
                             <h3>Категорії</h3>
                             <div className="grid gap-3">
-                                <SubjectSnippet title='Репетиторство'><Icons icon='TT' size={35} /></SubjectSnippet>
-                                <SubjectSnippet title='Домашні роботи'><Icons icon='HW' size={35} /></SubjectSnippet>
-                                <SubjectSnippet title='Пояснення складних тем'><Icons icon='DT' size={35} /></SubjectSnippet>
+                                <SubjectSnippet title='Репетиторство' icon='TT' ></SubjectSnippet>
+                                <SubjectSnippet title='Домашні роботи' icon='HW' ></SubjectSnippet>
+                                <SubjectSnippet title='Пояснення складних тем' icon='DT'></SubjectSnippet>
                             </div>
                         </div>
                     </div>

@@ -6,10 +6,10 @@ export default function OrderPage() {
     return (
         <PageWrapper>
             <Section title="Моє замовлення">
-                <div className="controls flex justify-between items-center w-full">
-                    <PrimaryButton>Назад</PrimaryButton>
+                <div className="controls flex justify-between items-center w-full border-b-2 border-rich-black pb-8">
+                    <SecondaryButton>Назад</SecondaryButton>
                     <div className="flex gap-4">
-                        <SecondaryButton>Редагувати</SecondaryButton>
+                        <PrimaryButton>Редагувати</PrimaryButton>
                         <DangerButton>Видалити</DangerButton>
                     </div>
                 </div>

@@ -8,11 +8,11 @@ import { Filter } from "@/components/ui/filter";
 import { EmployeeCard } from "@/components/cards/employee-card";
 import Avatar from "public/assets/avatars/Avatars";
 import Pagination from "@/components/layout/pagination";
-
+import OrderCard from "@/components/cards/order-card";
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
 
-export default function Catalog() {
+export default function OrdersCatalog() {
     const searchParams = useSearchParams();
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -76,10 +76,10 @@ export default function Catalog() {
 
     return (
         <PageWrapper>
-            <Section title="Пошук фахівців">
+            <Section title="Пошук замовлень">
                 <div className="flex gap-[100px]">
                     <div className="flex flex-col gap-4 whitespace-nowrap">
-                    
+                       
                         <Filter 
                             title="Предмет" 
                             filters={subjectCodes.map((code) => ({
@@ -100,34 +100,13 @@ export default function Catalog() {
                         />
                     </div>
                     <div className="w-full">
-                        <div className="grid gap-6">
-                            <EmployeeCard 
-                                name="Смирнова Марія" 
-                                rating='4.9/5' 
-                                customAvatar={<Avatar id={1} size={100} />} 
-                                education="Магістр з інформатики, сертифікат з академічного письма" 
-                                worksSince="На сайті з 14.01" 
-                                description="Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ."
-                            />
-                            <EmployeeCard 
-                                name="Іваненко Олександр" 
-                                rating='5/5' 
-                                customAvatar={<Avatar id={2} size={100} />} 
-                                education="Магістр з прикладної математики, кандидат наук (PhD) у галузі інформатики" 
-                                worksSince="На сайті з 14.01" 
-                                description="Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів."
-                            />
-                            <EmployeeCard 
-                                name="Коваль Андрій" 
-                                rating='4/5' 
-                                customAvatar={<Avatar id={5} size={100} />} 
-                                education="Доктор наук (PhD) з інформаційних технологій, університет 'Київ-Могилянська академія'" 
-                                worksSince="На сайті з 14.01" 
-                                description="Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички."
-                            />
+                        <div className="grid gap-4">
+                            <OrderCard variant="full"></OrderCard>
+                            <OrderCard variant="full"></OrderCard> 
+                            <OrderCard variant="full"></OrderCard>
                         </div>
                     </div>
-                    {/* <Pagination></Pagination> */}
+                 
                 </div>
                  <Pagination totalPages={20} currentPage={2} onPageChange={()=>{console.log('Page changed!')}}></Pagination>
             </Section>

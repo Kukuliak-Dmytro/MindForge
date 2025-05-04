@@ -3,7 +3,7 @@ import Icons  from '@/components/ui/icons';
 
 interface SubjectSnippetProps {
   title: string;
-  icon: "DT" | "DR" | "HW" | "KR" | "TT";
+  icon: "DT" | "DR" | "HW" | "KR" | "TT" | "Ukr" | "Mat" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
   size?: number;
   variant?: 'Default' | 'Inverse';
 }
