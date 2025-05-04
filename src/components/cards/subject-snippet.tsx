@@ -1,13 +1,16 @@
 import { ReactNode } from 'react';
+import Icons  from '@/components/ui/icons';
 
 interface SubjectSnippetProps {
   title: string;
-  children: ReactNode;
+  icon: "DT" | "DR" | "HW" | "KR" | "TT";
+  size?: number;
   variant?: 'Default' | 'Inverse';
 }
 
 export function SubjectSnippet({ 
-  children, 
+  icon, 
+  size = 35,
   title, 
   variant = 'Default' 
 }: SubjectSnippetProps) {
@@ -17,11 +20,11 @@ export function SubjectSnippet({
         flex justify-between items-center ${variant === 'Inverse' ? 'flex-row-reverse' : 'flex-row'}`}
     >
       <div>
-        {children}
+        <Icons icon={icon} size={size} />
       </div>
       <div className="py-[10px]">
         <p>{title}</p>
       </div>
     </div>
   );
-} 
+}

@@ -26,21 +26,11 @@ export default function Home() {
             </h1>
 
             <div className="flex flex-col gap-2 mb-4">
-              <SubjectSnippet title="Репетиторство">
-                <Icons icon="TT" size={35} />
-              </SubjectSnippet>
-              <SubjectSnippet title="Домашні роботи">
-                <Icons icon="HW" size={35} />
-              </SubjectSnippet>
-              <SubjectSnippet title="Контрольні роботи">
-                <Icons icon="KR" size={35} />
-              </SubjectSnippet>
-              <SubjectSnippet title="Комплексні теми">
-                <Icons icon="DT" size={35} />
-              </SubjectSnippet>
-              <SubjectSnippet title="Дипломні роботи">
-                <Icons icon="DR" size={35} />
-              </SubjectSnippet>
+              <SubjectSnippet title="Репетиторство" icon="TT" />
+              <SubjectSnippet title="Домашні роботи" icon="HW" />
+              <SubjectSnippet title="Контрольні роботи" icon="KR" />
+              <SubjectSnippet title="Комплексні теми" icon="DT" />
+              <SubjectSnippet title="Дипломні роботи" icon="DR" />
             </div>
 
             <div className="flex  gap-4 justify-between">
