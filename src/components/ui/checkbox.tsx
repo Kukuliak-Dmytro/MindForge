@@ -28,7 +28,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     return (
       <div
         className={cn(
-          "p-2 flex items-center justify-between bg-white-bg rounded-medium shadow-small cursor-pointer",
+          "p-2 flex flex-row-reverse gap-4 items-center justify-between bg-white-bg rounded-medium shadow-small cursor-pointer",
           className
         )}
         onClick={handleClick}

@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-primary text-rich-black",
         secondary: "bg-secondary text-rich-black",
-        danger: "bg-danger text-white-fg",
+        danger: "bg-danger text-rich-black",
         outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
         ghost: "bg-transparent hover:bg-accent hover:text-accent-foreground",
       },

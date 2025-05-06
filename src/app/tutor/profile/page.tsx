@@ -9,7 +9,9 @@ import { Textarea } from "@/components/ui/textarea";
 import Avatar from "public/assets/avatars/Avatars";
 import { useFormState } from "@/lib/hooks/use-form-state";
 import { Separator } from "@/components/ui/separator";
-
+import { Checkbox } from "@/components/ui/checkbox";
+import EducationCard from "@/components/cards/education-card";
+import ExperienceCard  from "@/components/cards/experience-card";
 export default function TutorProfile() {
     const [isEditing, setIsEditing] = useState(false);
     const { formState, handleChange, resetForm } = useFormState({
@@ -108,6 +110,38 @@ export default function TutorProfile() {
                                 )}
                             </div>
                         </div>
+                        <Separator></Separator>
+                        <div className="flex flex-col gap-6 p-6">
+                            <h4>Предмети</h4>
+                            <div className="grid grid-cols-3 gap-4">
+                                <Checkbox title="Математика"></Checkbox>
+                                <Checkbox title="Українська мова"></Checkbox>
+                                <Checkbox title="Англійська мова"></Checkbox>
+                                <Checkbox title="Біологія"></Checkbox>
+                                <Checkbox title="Географія"></Checkbox>
+                                <Checkbox title="Історія "></Checkbox>
+                                <Checkbox title="Хімія"></Checkbox>
+                                <Checkbox title="Фізика"></Checkbox>
+                                <Checkbox title="ІТ"></Checkbox>
+                            </div>
+                            <h4>Спеціальності</h4>
+                            <div className="grid grid-cols-3 gap-4">
+                                <Checkbox title="Репетиторство"></Checkbox>
+                                <Checkbox title="Домашні роботи"></Checkbox>
+                                <Checkbox title="Контрольні роботи"></Checkbox>
+                                <Checkbox title="Складні теми"></Checkbox>
+                                <Checkbox title="Дипломні роботи"></Checkbox>
+                                <PrimaryButton >Редагувати</PrimaryButton>
+                            </div>
+                        </div>
+                        <Separator></Separator>
+                        <EducationCard></EducationCard>
+                        <Separator></Separator>
+                        <ExperienceCard></ExperienceCard>
+                        
+
+
+
                     </div>
                 </div>
             </Section>
