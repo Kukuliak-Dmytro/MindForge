@@ -1,17 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { PrimaryButton } from "@/components/ui/button";
+import { getUserData, signOut } from "@/utils/auth";
+import type { User } from "@/types";
+import { useRouter } from "next/navigation";
+import { supabaseClient } from "@/utils/supabase/client";
 
-interface HeaderProps {
-  role?: 'employee' | 'employer';
-  isLogged?: boolean;
-}
-
-export function Header({ role = 'employer', isLogged = false }: HeaderProps) {
+export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const userData = await getUserData();
+        setUser(userData);
+      } catch (error) {
+        console.error('Error loading user:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    // Initial load
+    loadUser();
+
+    // Subscribe to auth state changes
+    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'USER_UPDATED') {
+        await loadUser();
+        router.refresh();
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router]);
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      setUser(null);
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
   return (
     <header className="w-full h-[80px] flex justify-center items-center bg-gradient-to-b from-white-bg to-white-fg shadow-small">
       <div className="flex justify-between max-w-[1240px] w-full px-4">
@@ -28,10 +69,6 @@ export function Header({ role = 'employer', isLogged = false }: HeaderProps) {
         
         {/* Right side */}
         <div className="flex justify-between items-center gap-4">
-          <PrimaryButton>
-            {role === 'employer' ? 'Почати заробляти' : 'Замовити послугу'}
-          </PrimaryButton>
-          
           {/* Custom Dropdown Menu */}
           <div className="relative">
             <button 
@@ -49,25 +86,35 @@ export function Header({ role = 'employer', isLogged = false }: HeaderProps) {
                   ? 'transform scale-100 opacity-100 translate-y-0' 
                   : 'transform scale-95 opacity-0 -translate-y-2 pointer-events-none'}`}
             >
-              {isLogged ? (
+              {isLoading ? (
+                <div className="py-2 px-0">Завантаження...</div>
+              ) : user ? (
                 <div className="flex flex-col gap-2">
+                  <div className="py-2 px-0 border-b border-gray-200">
+                    <div className="font-medium">{user.firstName} {user.lastName}</div>
+                    <div className="text-sm text-gray-600">{user.email}</div>
+                  </div>
                   <a href="/profile" className="py-2 px-0 hover:text-secondary transition-colors">Профіль</a>
                   <a href="/saved" className="py-2 px-0 hover:text-secondary transition-colors">Збережені</a>
                   <a href="/messages" className="py-2 px-0 hover:text-secondary transition-colors">Повідомлення</a>
                   <a href="/orders" className="py-2 px-0 hover:text-secondary transition-colors">Замовлення</a>
-                  <a href="/logout" className="py-2 px-0 hover:text-secondary transition-colors">Вихід</a>
+                  <button 
+                    onClick={handleSignOut}
+                    className="py-2 px-0 hover:text-secondary transition-colors text-left"
+                  >
+                    Вихід
+                  </button>
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
-                  <a href="/login/specialist" className="py-2 px-0 hover:text-secondary transition-colors">Увійти як фахівець</a>
-                  <a href="/login/client" className="py-2 px-0 hover:text-secondary transition-colors">Увійти як замовник</a>
+                  <a href="/auth/login" className="py-2 px-0 hover:text-secondary transition-colors">Увійти</a>
+                  <a href="/auth/signup" className="py-2 px-0 hover:text-secondary transition-colors">Зареєструватися</a>
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
-      
       
       <style jsx>{`
         @keyframes fadeIn {

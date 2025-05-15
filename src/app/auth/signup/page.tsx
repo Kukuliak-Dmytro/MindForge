@@ -27,19 +27,26 @@ export default function RegisterPage() {
     const firstName = formData.get('firstName') as string;
     const lastName = formData.get('lastName') as string;
 
+    console.log('Register form submitted:', { email, firstName, lastName, userType });
+
     if (password !== confirmPassword) {
       setError('Паролі не співпадають');
       setIsLoading(false);
       return;
     }
 
+    formData.append('userType', userType);
+
     try {
       const result = await signup(formData);
+      
       if (result?.error) {
+        console.error('Signup returned error:', result.error);
         setError(result.error);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Unexpected error in register page:', err);
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
     } finally {
       setIsLoading(false);
     }
