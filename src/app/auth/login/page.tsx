@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { PrimaryButton } from '@/components/ui/button';
 import { InputText } from '@/components/ui/input-text';
 import { login } from '../actions';
+
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -31,15 +32,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-white-bg)]">
+      <div className="max-w-md w-full space-y-8 p-8 bg-[var(--color-white-fg)] rounded-[var(--radius-medium)] shadow-[var(--shadow-medium)]">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[var(--color-rich-black)]">
             Увійти до облікового запису
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-[var(--color-dark-gray)]">
             Або{' '}
-            <Link href="/auth/register" className="font-medium text-primary hover:text-primary-dark">
+            <Link href="/auth/register" className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80">
               створити новий обліковий запис
             </Link>
           </p>
@@ -47,7 +48,7 @@ export default function LoginPage() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
+            <div className="bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 text-[var(--color-danger)] px-4 py-3 rounded-[var(--radius-small)]">
               {error}
             </div>
           )}
@@ -80,15 +81,15 @@ export default function LoginPage() {
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                className="h-4 w-4 text-[var(--color-primary)] focus:ring-[var(--color-primary)] border-[var(--color-dark-gray)]/30 rounded-[var(--radius-small)]"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-[var(--color-rich-black)]">
                 Запам'ятати мене
               </label>
             </div>
 
             <div className="text-sm">
-              <Link href="/auth/forgot-password" className="font-medium text-primary hover:text-primary-dark">
+              <Link href="/auth/forgot-password" className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80">
                 Забули пароль?
               </Link>
             </div>

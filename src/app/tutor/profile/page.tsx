@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Section } from "@/components/layout/section";
 import { PrimaryButton, SecondaryButton, DangerButton } from "@/components/ui/button";
@@ -9,30 +9,78 @@ import { Textarea } from "@/components/ui/textarea";
 import Avatar from "public/assets/avatars/Avatars";
 import { useFormState } from "@/lib/hooks/use-form-state";
 import { Separator } from "@/components/ui/separator";
-import { Checkbox } from "@/components/ui/checkbox";
-import EducationCard from "@/components/cards/education-card";
-import ExperienceCard  from "@/components/cards/experience-card";
+import { useProfile, useUpdateProfile } from "@/hooks/use-profile";
+import React from "react";
+
 export default function TutorProfile() {
     const [isEditing, setIsEditing] = useState(false);
-    const { formState, handleChange, resetForm } = useFormState({
-        name: "Марія",
-        surname: "Смирнова",
-        phone: "+380 99 999 99 99",
-        email: "email@example.com",
-        bio: "Я, Смирнова Марія Олексіївна, маю ступінь бакалавра в галузі математики і вже більше року займаюся викладанням математики онлайн. Моя професія — це не просто робота, а покликання. Я щиро вірю, що математичні знання є фундаментом для розвитку мислення та здатності розв'язувати складні завдання. Викладаючи математику, я завжди намагаюся зробити цей процес максимально зрозумілим і доступним для моїх учнів, застосовуючи індивідуальний підхід до кожного.",
-    });
+    const { data: profile, isLoading } = useProfile();
+    const updateProfile = useUpdateProfile();
+    
+    // Initialize form state with memoized values
+    const initialFormState = useMemo(() => ({
+        firstName: profile?.firstName || "",
+        lastName: profile?.lastName || "",
+        contactInfo: profile?.profile?.contactInfo || "",
+        email: profile?.email || "",
+        bio: profile?.profile?.bio || "",
+    }), [profile?.firstName, profile?.lastName, profile?.profile?.contactInfo, profile?.email, profile?.profile?.bio]);
 
-    const handleSave = () => {
-        // Here you would typically save the data to your backend
-        setIsEditing(false);
+    const { formState, handleChange, resetForm, updateField } = useFormState(initialFormState);
+
+    // Only update form when entering edit mode or when profile first loads
+    React.useEffect(() => {
+        if (profile && !isEditing) {
+            resetForm();
+        }
+    }, [profile, isEditing, resetForm]);
+
+    const handleSave = async () => {
+        try {
+            await updateProfile.mutateAsync({
+                firstName: formState.firstName,
+                lastName: formState.lastName,
+                profile: {
+                    bio: formState.bio,
+                    contactInfo: formState.contactInfo,
+                    updatedAt: new Date().toISOString()
+                }
+            });
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating profile:', error);
+        }
     };
 
     const handleCancel = () => {
-        resetForm(); // Reset to original values
+        resetForm();
         setIsEditing(false);
     };
 
+    const handleEdit = () => {
+        if (profile) {
+            updateField('firstName', profile.firstName);
+            updateField('lastName', profile.lastName);
+            updateField('contactInfo', profile.profile?.contactInfo || '');
+            updateField('email', profile.email);
+            updateField('bio', profile.profile?.bio || '');
+        }
+        setIsEditing(true);
+    };
+
     const sharedFieldStyles = "w-full bg-white-bg shadow-small rounded-medium";
+
+    if (isLoading) {
+        return (
+            <PageWrapper>
+                <Section title="Мій профіль">
+                    <div className="flex items-center justify-center py-8">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                </Section>
+            </PageWrapper>
+        );
+    }
 
     return (
         <PageWrapper>
@@ -50,8 +98,8 @@ export default function TutorProfile() {
                         <div className="flex flex-col gap-6">
                             <div className="grid grid-cols-2 gap-6">
                                 <InputText
-                                    value={formState.name}
-                                    id="name"
+                                    value={formState.firstName}
+                                    id="firstName"
                                     title="Ім'я"
                                     placeholder="Ваше ім'я"
                                     onChange={handleChange}
@@ -59,8 +107,8 @@ export default function TutorProfile() {
                                     readOnly={!isEditing}
                                 />
                                 <InputText
-                                    value={formState.surname}
-                                    id="surname"
+                                    value={formState.lastName}
+                                    id="lastName"
                                     title="Прізвище"
                                     placeholder="Ваше прізвище"
                                     onChange={handleChange}
@@ -68,8 +116,8 @@ export default function TutorProfile() {
                                     readOnly={!isEditing}
                                 />
                                 <InputText
-                                    value={formState.phone}
-                                    id="phone"
+                                    value={formState.contactInfo}
+                                    id="contactInfo"
                                     title="Телефон"
                                     placeholder="Ваш телефон"
                                     onChange={handleChange}
@@ -85,7 +133,8 @@ export default function TutorProfile() {
                                     onChange={handleChange}
                                     type="email"
                                     className={sharedFieldStyles}
-                                    readOnly={!isEditing}
+                                    readOnly={true}
+                                    disabled={true}
                                 />
                             </div>
                             <Textarea
@@ -101,47 +150,21 @@ export default function TutorProfile() {
                                 {isEditing ? (
                                     <>
                                         <SecondaryButton onClick={handleCancel}>Скасувати</SecondaryButton>
-                                        <PrimaryButton onClick={handleSave}>Зберегти</PrimaryButton>
+                                        <PrimaryButton 
+                                            onClick={handleSave}
+                                            disabled={updateProfile.isPending}
+                                        >
+                                            {updateProfile.isPending ? 'Збереження...' : 'Зберегти'}
+                                        </PrimaryButton>
                                     </>
                                 ) : (
-                                    <PrimaryButton onClick={() => setIsEditing(true)}>
+                                    <PrimaryButton onClick={handleEdit}>
                                         Редагувати
                                     </PrimaryButton>
                                 )}
                             </div>
                         </div>
-                        <Separator></Separator>
-                        <div className="flex flex-col gap-6 p-6">
-                            <h4>Предмети</h4>
-                            <div className="grid grid-cols-3 gap-4">
-                                <Checkbox title="Математика"></Checkbox>
-                                <Checkbox title="Українська мова"></Checkbox>
-                                <Checkbox title="Англійська мова"></Checkbox>
-                                <Checkbox title="Біологія"></Checkbox>
-                                <Checkbox title="Географія"></Checkbox>
-                                <Checkbox title="Історія "></Checkbox>
-                                <Checkbox title="Хімія"></Checkbox>
-                                <Checkbox title="Фізика"></Checkbox>
-                                <Checkbox title="ІТ"></Checkbox>
-                            </div>
-                            <h4>Спеціальності</h4>
-                            <div className="grid grid-cols-3 gap-4">
-                                <Checkbox title="Репетиторство"></Checkbox>
-                                <Checkbox title="Домашні роботи"></Checkbox>
-                                <Checkbox title="Контрольні роботи"></Checkbox>
-                                <Checkbox title="Складні теми"></Checkbox>
-                                <Checkbox title="Дипломні роботи"></Checkbox>
-                                <PrimaryButton >Редагувати</PrimaryButton>
-                            </div>
-                        </div>
-                        <Separator></Separator>
-                        <EducationCard></EducationCard>
-                        <Separator></Separator>
-                        <ExperienceCard></ExperienceCard>
-                        
-
-
-
+                        <Separator />
                     </div>
                 </div>
             </Section>

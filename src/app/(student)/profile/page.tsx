@@ -1,33 +1,81 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Section } from "@/components/layout/section";
 import { PrimaryButton, SecondaryButton, DangerButton } from "@/components/ui/button";
 import { InputText } from "@/components/ui/input-text";
 import Avatar from "public/assets/avatars/Avatars";
 import { useFormState } from "@/lib/hooks/use-form-state";
+import { useProfile, useUpdateProfile } from "@/hooks/use-profile";
+import React from "react";
 
 export default function StudentProfile() {
     const [isEditing, setIsEditing] = useState(false);
-    const { formState, handleChange, resetForm } = useFormState({
-        name: "Марія",
-        surname: "Смирнова",
-        phone: "+380 99 999 99 99",
-        email: "email@example.com",
-    });
+    const { data: profile, isLoading } = useProfile();
+    const updateProfile = useUpdateProfile();
+    
+    // Initialize form state with memoized values
+    const initialFormState = useMemo(() => ({
+        firstName: profile?.firstName || "",
+        lastName: profile?.lastName || "",
+        contactInfo: profile?.profile?.contactInfo || "",
+        email: profile?.email || "",
+    }), [profile?.firstName, profile?.lastName, profile?.profile?.contactInfo, profile?.email]);
 
-    const handleSave = () => {
-        // Here you would typically save the data to your backend
-        setIsEditing(false);
+    const { formState, handleChange, resetForm, updateField } = useFormState(initialFormState);
+
+    // Only update form when entering edit mode or when profile first loads
+    React.useEffect(() => {
+        if (profile && !isEditing) {
+            resetForm();
+        }
+    }, [profile, isEditing, resetForm]);
+
+    const handleSave = async () => {
+        try {
+            await updateProfile.mutateAsync({
+                firstName: formState.firstName,
+                lastName: formState.lastName,
+                profile: {
+                    contactInfo: formState.contactInfo,
+                    updatedAt: new Date().toISOString()
+                }
+            });
+            setIsEditing(false);
+        } catch (error) {
+            console.error('Error updating profile:', error);
+        }
     };
 
     const handleCancel = () => {
-        resetForm(); // Reset to original values
+        resetForm();
         setIsEditing(false);
     };
 
+    const handleEdit = () => {
+        if (profile) {
+            updateField('firstName', profile.firstName);
+            updateField('lastName', profile.lastName);
+            updateField('contactInfo', profile.profile?.contactInfo || '');
+            updateField('email', profile.email);
+        }
+        setIsEditing(true);
+    };
+
     const sharedFieldStyles = "w-full bg-white-bg shadow-small rounded-medium";
+
+    if (isLoading) {
+        return (
+            <PageWrapper>
+                <Section title="Мій профіль">
+                    <div className="flex items-center justify-center py-8">
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                    </div>
+                </Section>
+            </PageWrapper>
+        );
+    }
 
     return (
         <PageWrapper>
@@ -44,8 +92,8 @@ export default function StudentProfile() {
                     <div className="w-full">
                         <div className="grid grid-cols-2 gap-6">
                             <InputText
-                                value={formState.name}
-                                id="name"
+                                value={formState.firstName}
+                                id="firstName"
                                 title="Ім'я"
                                 placeholder="Ваше ім'я"
                                 onChange={handleChange}
@@ -53,8 +101,8 @@ export default function StudentProfile() {
                                 readOnly={!isEditing}
                             />
                             <InputText
-                                value={formState.surname}
-                                id="surname"
+                                value={formState.lastName}
+                                id="lastName"
                                 title="Прізвище"
                                 placeholder="Ваше прізвище"
                                 onChange={handleChange}
@@ -62,8 +110,8 @@ export default function StudentProfile() {
                                 readOnly={!isEditing}
                             />
                             <InputText
-                                value={formState.phone}
-                                id="phone"
+                                value={formState.contactInfo}
+                                id="contactInfo"
                                 title="Телефон"
                                 placeholder="Ваш телефон"
                                 onChange={handleChange}
@@ -79,16 +127,22 @@ export default function StudentProfile() {
                                 onChange={handleChange}
                                 type="email"
                                 className={sharedFieldStyles}
-                                readOnly={!isEditing}
+                                readOnly={true}
+                                disabled={true}
                             />
                             <div className="col-span-2 justify-self-end flex gap-4">
                                 {isEditing ? (
                                     <>
                                         <SecondaryButton onClick={handleCancel}>Скасувати</SecondaryButton>
-                                        <PrimaryButton onClick={handleSave}>Зберегти</PrimaryButton>
+                                        <PrimaryButton 
+                                            onClick={handleSave}
+                                            disabled={updateProfile.isPending}
+                                        >
+                                            {updateProfile.isPending ? 'Збереження...' : 'Зберегти'}
+                                        </PrimaryButton>
                                     </>
                                 ) : (
-                                    <PrimaryButton onClick={() => setIsEditing(true)}>
+                                    <PrimaryButton onClick={handleEdit}>
                                         Редагувати
                                     </PrimaryButton>
                                 )}

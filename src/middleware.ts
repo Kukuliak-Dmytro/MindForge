@@ -1,13 +1,37 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+// List of public paths that don't require authentication
+const publicPaths = [
+  '/auth/login',
+  '/auth/signup',
+  '/auth/forgot-password',
+  '/auth/reset-password',
+  '/auth/confirm',
+  '/error',
+  '/api',
+  '/_next',
+  '/favicon.ico',
+  '/assets',
+]
+
+// List of shared paths accessible by both roles
+const sharedPaths = [
+  '/profile',
+  '/saved',
+  '/messages',
+  '/orders',
+]
+
 export async function middleware(request: NextRequest) {
+  // Create response object
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   })
 
+  // Create Supabase client
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -34,49 +58,60 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  const { data: { session } } = await supabase.auth.getSession()
+  // Get the current path
+  const path = request.nextUrl.pathname
 
-  // If there's no session and trying to access protected routes
-  if (!session) {
-    const isAuthPage = request.nextUrl.pathname.startsWith('/auth')
-    if (!isAuthPage) {
-      return NextResponse.redirect(new URL('/auth/login', request.url))
-    }
+  // Check if the path is public
+  const isPublicPath = publicPaths.some(publicPath => path.startsWith(publicPath))
+  if (isPublicPath) {
     return response
   }
 
+  // IMPORTANT: Use getUser() instead of getSession() for proper token validation
+  const { data: { user }, error } = await supabase.auth.getUser()
+
+  // If no valid user or error occurred, redirect to login
+  if (!user || error) {
+    const loginUrl = new URL('/auth/login', request.url)
+    loginUrl.searchParams.set('redirectTo', path)
+    return NextResponse.redirect(loginUrl)
+  }
+
   // Get user role from metadata
-  const role = session.user.user_metadata.role || 'STUDENT'
+  const role = user.user_metadata.role || 'STUDENT'
 
-  // Handle tutor routes
-  if (request.nextUrl.pathname.startsWith('/tutor')) {
-    if (role !== 'TUTOR') {
+  // Check if the path is shared
+  const isSharedPath = sharedPaths.some(sharedPath => path.startsWith(sharedPath))
+  if (isSharedPath) {
+    return response
+  }
+
+  // Handle role-based routing
+  if (role === 'TUTOR') {
+    // If tutor tries to access student routes, redirect to tutor dashboard
+    if (path === '/' || path.startsWith('/(student)')) {
+      return NextResponse.redirect(new URL('/tutor', request.url))
+    }
+  } else {
+    // If student tries to access tutor routes, redirect to student dashboard
+    if (path.startsWith('/tutor')) {
       return NextResponse.redirect(new URL('/', request.url))
     }
   }
 
-  // Handle student routes
-  if (request.nextUrl.pathname.startsWith('/(student)')) {
-    if (role !== 'STUDENT') {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
-  }
-
-  // Handle private routes (accessible by both tutors and students)
-  if (request.nextUrl.pathname.startsWith('/private')) {
-    if (role !== 'TUTOR' && role !== 'STUDENT') {
-      return NextResponse.redirect(new URL('/', request.url))
-    }
-  }
-
+  // IMPORTANT: Return the response with the original cookies
   return response
 }
 
 export const config = {
   matcher: [
-    '/tutor/:path*',
-    '/(student)/:path*',
-    '/private/:path*',
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public files (images, etc.)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],
 } 

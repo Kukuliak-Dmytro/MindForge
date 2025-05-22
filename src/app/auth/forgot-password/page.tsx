@@ -1,12 +1,21 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { resetPassword } from '../actions'
+import { PrimaryButton } from '@/components/ui/button'
+import { InputText } from '@/components/ui/input-text'
 
 export default function ResetPasswordPage() {
   const [message, setMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setIsLoading(true)
+    setMessage(null)
+
+    const formData = new FormData(e.currentTarget)
     const result = await resetPassword(formData)
     
     if (result?.error) {
@@ -14,54 +23,63 @@ export default function ResetPasswordPage() {
     } else {
       setMessage({ 
         type: 'success', 
-        text: 'Check your email for the password reset link' 
+        text: 'Перевірте вашу електронну пошту для отримання посилання на скидання паролю' 
       })
     }
+    setIsLoading(false)
   }
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">Reset Password</h1>
-        <p className="text-sm text-gray-600">
-          Enter your email address and we'll send you a link to reset your password.
-        </p>
-      </div>
-
-      <form
-        className="animate-in flex-1 flex flex-col w-full justify-center gap-6 text-foreground"
-        action={handleSubmit}
-      >
-        <div className="flex flex-col gap-2">
-          <label className="text-md" htmlFor="email">
-            Email
-          </label>
-          <input
-            className="rounded-md px-4 py-2 bg-inherit border"
-            name="email"
-            type="email"
-            placeholder="you@example.com"
-            required
-          />
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-white-bg)]">
+      <div className="max-w-md w-full space-y-8 p-8 bg-[var(--color-white-fg)] rounded-[var(--radius-medium)] shadow-[var(--shadow-medium)]">
+        <div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[var(--color-rich-black)]">
+            Скидання паролю
+          </h2>
+          <p className="mt-2 text-center text-sm text-[var(--color-dark-gray)]">
+            Введіть вашу електронну пошту, і ми надішлемо вам посилання для скидання паролю
+          </p>
         </div>
 
-        {message && (
-          <div
-            className={`p-3 rounded-md ${
-              message.type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
-            }`}
-          >
-            {message.text}
-          </div>
-        )}
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          {message && (
+            <div className={`px-4 py-3 rounded-[var(--radius-small)] ${
+              message.type === 'error' 
+                ? 'bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 text-[var(--color-danger)]' 
+                : 'bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 text-[var(--color-accent)]'
+            }`}>
+              {message.text}
+            </div>
+          )}
 
-        <button
-          className="bg-blue-700 rounded-md px-4 py-2 text-foreground mb-2 hover:bg-blue-800"
-          type="submit"
-        >
-          Reset Password
-        </button>
-      </form>
+          <div className="space-y-4">
+            <InputText
+              id="email"
+              name="email"
+              title="Електронна пошта"
+              placeholder="Введіть вашу електронну пошту"
+              type="email"
+              autoComplete="email"
+              required
+            />
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <PrimaryButton type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? 'Завантаження...' : 'Надіслати посилання'}
+            </PrimaryButton>
+
+            <div className="text-center text-sm">
+              <Link 
+                href="/auth/login" 
+                className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80"
+              >
+                Повернутися до входу
+              </Link>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   )
 } 

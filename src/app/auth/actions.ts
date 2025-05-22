@@ -14,10 +14,15 @@ export async function login(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { data: { user }, error } = await supabase.auth.signInWithPassword(data)
+  const { data: { user, session }, error } = await supabase.auth.signInWithPassword(data)
 
   if (error) {
     return { error: error.message }
+  }
+
+  // Log the access token after successful login
+  if (session?.access_token) {
+    console.log('Access token after login:', session.access_token)
   }
 
   // Get user role from metadata

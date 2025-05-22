@@ -2,50 +2,43 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { PrimaryButton } from "@/components/ui/button";
-import { getUserData, signOut } from "@/utils/auth";
-import type { User } from "@/types";
 import { useRouter } from "next/navigation";
-import { supabaseClient } from "@/utils/supabase/client";
+import { createBrowserClient } from '@supabase/ssr';
+import { useProfile } from "@/hooks/use-profile";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const { data: profile, isLoading: isProfileLoading } = useProfile();
 
+  // Create a single browser client instance
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  // Handle click outside
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const userData = await getUserData();
-        setUser(userData);
-      } catch (error) {
-        console.error('Error loading user:', error);
-      } finally {
-        setIsLoading(false);
+    const handleClickOutside = (event: MouseEvent) => {
+      const menuButton = document.querySelector('[data-menu-button]');
+      const menuContent = document.querySelector('[data-menu-content]');
+      
+      if (isMenuOpen && menuButton && menuContent) {
+        if (!menuButton.contains(event.target as Node) && !menuContent.contains(event.target as Node)) {
+          setIsMenuOpen(false);
+        }
       }
     };
 
-    // Initial load
-    loadUser();
-
-    // Subscribe to auth state changes
-    const { data: { subscription } } = supabaseClient.auth.onAuthStateChange(async (event, session) => {
-      if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'USER_UPDATED') {
-        await loadUser();
-        router.refresh();
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [router]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMenuOpen]);
 
   const handleSignOut = async () => {
     try {
-      await signOut();
-      setUser(null);
+      setIsMenuOpen(false);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
       router.push('/');
       router.refresh();
     } catch (error) {
@@ -72,8 +65,11 @@ export function Header() {
           {/* Custom Dropdown Menu */}
           <div className="relative">
             <button 
+              data-menu-button
               className="h-10 w-10 p-[12px_8px] rounded-medium bg-primary shadow-small flex flex-col justify-between items-center cursor-pointer transition-all focus:outline-none"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-expanded={isMenuOpen}
+              aria-label="Toggle menu"
             >
               <span className={`block w-6 h-[3px] bg-rich-black rounded-[3px] transition-transform duration-300 ${isMenuOpen ? 'rotate-45 translate-y-[6.5px] origin-center' : ''}`}></span>
               <span className={`block w-6 h-[3px] bg-rich-black rounded-[3px] transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : ''}`}></span>
@@ -81,18 +77,22 @@ export function Header() {
             </button>
             
             <div 
+              data-menu-content
               className={`absolute top-full right-0 mt-2 w-[225px] bg-white-fg rounded-medium shadow-double p-4 border-none text-right z-50 origin-top-right transition-all duration-200 ease-out
                 ${isMenuOpen 
                   ? 'transform scale-100 opacity-100 translate-y-0' 
                   : 'transform scale-95 opacity-0 -translate-y-2 pointer-events-none'}`}
             >
-              {isLoading ? (
-                <div className="py-2 px-0">Завантаження...</div>
-              ) : user ? (
+              {isProfileLoading ? (
+                <div className="py-2 px-0 flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary mr-2"></div>
+                  Завантаження...
+                </div>
+              ) : profile ? (
                 <div className="flex flex-col gap-2">
                   <div className="py-2 px-0 border-b border-gray-200">
-                    <div className="font-medium">{user.firstName} {user.lastName}</div>
-                    <div className="text-sm text-gray-600">{user.email}</div>
+                    <div className="font-medium">{profile.firstName} {profile.lastName}</div>
+                    <div className="text-sm text-gray-600">{profile.email}</div>
                   </div>
                   <a href="/profile" className="py-2 px-0 hover:text-secondary transition-colors">Профіль</a>
                   <a href="/saved" className="py-2 px-0 hover:text-secondary transition-colors">Збережені</a>
