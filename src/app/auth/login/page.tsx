@@ -40,7 +40,7 @@ export default function LoginPage() {
           </h2>
           <p className="mt-2 text-center text-sm text-[var(--color-dark-gray)]">
             Або{' '}
-            <Link href="/auth/register" className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80">
+            <Link href="/auth/signup" className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80">
               створити новий обліковий запис
             </Link>
           </p>

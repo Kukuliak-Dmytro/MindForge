@@ -38,10 +38,10 @@ model User {
 }
 
 model Profile {
-  id          String   @id @default(uuid())
+  id          String   @id @default(cuid())
   userId      String   @unique
   bio         String?
-  contactInfo String?
+  phone       String?
   updatedAt   DateTime @updatedAt
 
   // Relations

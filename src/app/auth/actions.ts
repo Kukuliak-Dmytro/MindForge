@@ -71,7 +71,7 @@ export async function signup(formData: FormData) {
     }
 
     // Validate user type
-    if (userType !== 'student' && userType !== 'mentor') {
+    if (userType !== 'student' && userType !== 'tutor') {
       return { error: 'Невірний тип користувача' };
     }
 
@@ -79,7 +79,7 @@ export async function signup(formData: FormData) {
     const metadata = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
-      role: userType === 'mentor' ? 'TUTOR' : 'STUDENT'
+      role: userType === 'tutor' ? 'TUTOR' : 'STUDENT'
     };
 
     console.log('Preparing signup with metadata:', metadata);
@@ -117,11 +117,9 @@ export async function signup(formData: FormData) {
 
     revalidatePath('/', 'layout')
     
-    // Redirect based on role
-    if (metadata.role === 'TUTOR') {
-      redirect('/tutor')
-    } else {
-      redirect('/')
+    // Return redirect URL instead of redirecting directly
+    return { 
+      redirectTo: metadata.role === 'TUTOR' ? '/tutor' : '/'
     }
   } catch (err) {
     console.error('Unexpected error during signup:', err);

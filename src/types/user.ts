@@ -13,7 +13,6 @@ export interface Profile {
   id: string
   userId: string
   bio?: string
-  contactInfo?: string
   updatedAt: Date
 }
 

@@ -93,11 +93,27 @@ export function Header() {
                   <div className="py-2 px-0 border-b border-gray-200">
                     <div className="font-medium">{profile.firstName} {profile.lastName}</div>
                     <div className="text-sm text-gray-600">{profile.email}</div>
+                    <div className="text-xs text-gray-500">{profile.role === 'TUTOR' ? 'Ментор' : 'Студент'}</div>
                   </div>
-                  <a href="/profile" className="py-2 px-0 hover:text-secondary transition-colors">Профіль</a>
-                  <a href="/saved" className="py-2 px-0 hover:text-secondary transition-colors">Збережені</a>
+                  <a 
+                    href={profile.role === 'TUTOR' ? '/tutor/profile' : '/profile'} 
+                    className="py-2 px-0 hover:text-secondary transition-colors"
+                  >
+                    Профіль
+                  </a>
+                  {profile.role === 'TUTOR' ? (
+                    <>
+                      <a href="/tutor/subjects" className="py-2 px-0 hover:text-secondary transition-colors">Мої предмети</a>
+                      <a href="/tutor/schedule" className="py-2 px-0 hover:text-secondary transition-colors">Розклад</a>
+                      <a href="/tutor/students" className="py-2 px-0 hover:text-secondary transition-colors">Мої студенти</a>
+                    </>
+                  ) : (
+                    <>
+                      <a href="/saved" className="py-2 px-0 hover:text-secondary transition-colors">Збережені</a>
+                      <a href="/orders" className="py-2 px-0 hover:text-secondary transition-colors">Мої заняття</a>
+                    </>
+                  )}
                   <a href="/messages" className="py-2 px-0 hover:text-secondary transition-colors">Повідомлення</a>
-                  <a href="/orders" className="py-2 px-0 hover:text-secondary transition-colors">Замовлення</a>
                   <button 
                     onClick={handleSignOut}
                     className="py-2 px-0 hover:text-secondary transition-colors text-left"

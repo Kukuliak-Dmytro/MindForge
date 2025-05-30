@@ -7,7 +7,7 @@ import { PrimaryButton } from '@/components/ui/button';
 import { InputText } from '@/components/ui/input-text';
 import { signup } from '../actions';
 
-type UserType = 'student' | 'mentor';
+type UserType = 'student' | 'tutor';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -43,6 +43,9 @@ export default function RegisterPage() {
       if (result?.error) {
         console.error('Signup returned error:', result.error);
         setError(result.error);
+      } else if (result?.redirectTo) {
+        // Handle successful signup with redirect
+        router.push(result.redirectTo);
       }
     } catch (err) {
       console.error('Unexpected error in register page:', err);
@@ -53,15 +56,15 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-white-bg)]">
+      <div className="max-w-md w-full space-y-8 p-8 bg-[var(--color-white-fg)] rounded-[var(--radius-medium)] shadow-[var(--shadow-medium)]">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[var(--color-rich-black)]">
             Створити обліковий запис
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-[var(--color-dark-gray)]">
             Або{' '}
-            <Link href="/auth/login" className="font-medium text-primary hover:text-primary-dark">
+            <Link href="/auth/login" className="font-medium text-[var(--color-primary)] hover:text-[var(--color-primary)]/80">
               увійти до існуючого облікового запису
             </Link>
           </p>
@@ -69,7 +72,7 @@ export default function RegisterPage() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
+            <div className="bg-[var(--color-danger)]/10 border border-[var(--color-danger)]/20 text-[var(--color-danger)] px-4 py-3 rounded-[var(--radius-small)]">
               {error}
             </div>
           )}
@@ -91,11 +94,11 @@ export default function RegisterPage() {
               <button
                 type="button"
                 className={`flex-1 py-2 px-4 rounded-md border ${
-                  userType === 'mentor'
+                  userType === 'tutor'
                     ? 'bg-primary text-white border-primary'
                     : 'bg-white text-gray-700 border-gray-300'
                 }`}
-                onClick={() => setUserType('mentor')}
+                onClick={() => setUserType('tutor')}
               >
                 Я ментор
               </button>

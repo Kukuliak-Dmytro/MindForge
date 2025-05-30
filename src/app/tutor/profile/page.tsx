@@ -21,10 +21,10 @@ export default function TutorProfile() {
     const initialFormState = useMemo(() => ({
         firstName: profile?.firstName || "",
         lastName: profile?.lastName || "",
-        contactInfo: profile?.profile?.contactInfo || "",
         email: profile?.email || "",
         bio: profile?.profile?.bio || "",
-    }), [profile?.firstName, profile?.lastName, profile?.profile?.contactInfo, profile?.email, profile?.profile?.bio]);
+        phone: profile?.profile?.phone || "",
+    }), [profile?.firstName, profile?.lastName, profile?.email, profile?.profile?.bio, profile?.profile?.phone]);
 
     const { formState, handleChange, resetForm, updateField } = useFormState(initialFormState);
 
@@ -42,7 +42,7 @@ export default function TutorProfile() {
                 lastName: formState.lastName,
                 profile: {
                     bio: formState.bio,
-                    contactInfo: formState.contactInfo,
+                    phone: formState.phone,
                     updatedAt: new Date().toISOString()
                 }
             });
@@ -61,9 +61,9 @@ export default function TutorProfile() {
         if (profile) {
             updateField('firstName', profile.firstName);
             updateField('lastName', profile.lastName);
-            updateField('contactInfo', profile.profile?.contactInfo || '');
             updateField('email', profile.email);
             updateField('bio', profile.profile?.bio || '');
+            updateField('phone', profile.profile?.phone || '');
         }
         setIsEditing(true);
     };
@@ -116,8 +116,8 @@ export default function TutorProfile() {
                                     readOnly={!isEditing}
                                 />
                                 <InputText
-                                    value={formState.contactInfo}
-                                    id="contactInfo"
+                                    value={formState.phone}
+                                    id="phone"
                                     title="Телефон"
                                     placeholder="Ваш телефон"
                                     onChange={handleChange}

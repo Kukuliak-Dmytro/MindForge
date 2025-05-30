@@ -19,9 +19,9 @@ export default function StudentProfile() {
     const initialFormState = useMemo(() => ({
         firstName: profile?.firstName || "",
         lastName: profile?.lastName || "",
-        contactInfo: profile?.profile?.contactInfo || "",
         email: profile?.email || "",
-    }), [profile?.firstName, profile?.lastName, profile?.profile?.contactInfo, profile?.email]);
+        phone: profile?.profile?.phone || "",
+    }), [profile?.firstName, profile?.lastName, profile?.email, profile?.profile?.phone]);
 
     const { formState, handleChange, resetForm, updateField } = useFormState(initialFormState);
 
@@ -38,7 +38,7 @@ export default function StudentProfile() {
                 firstName: formState.firstName,
                 lastName: formState.lastName,
                 profile: {
-                    contactInfo: formState.contactInfo,
+                    phone: formState.phone,
                     updatedAt: new Date().toISOString()
                 }
             });
@@ -57,8 +57,8 @@ export default function StudentProfile() {
         if (profile) {
             updateField('firstName', profile.firstName);
             updateField('lastName', profile.lastName);
-            updateField('contactInfo', profile.profile?.contactInfo || '');
             updateField('email', profile.email);
+            updateField('phone', profile.profile?.phone || '');
         }
         setIsEditing(true);
     };
@@ -110,8 +110,8 @@ export default function StudentProfile() {
                                 readOnly={!isEditing}
                             />
                             <InputText
-                                value={formState.contactInfo}
-                                id="contactInfo"
+                                value={formState.phone}
+                                id="phone"
                                 title="Телефон"
                                 placeholder="Ваш телефон"
                                 onChange={handleChange}
