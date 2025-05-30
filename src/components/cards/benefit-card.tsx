@@ -25,8 +25,8 @@ export function BenefitCard({ title, imgSrc, color = 'default' }: BenefitCardPro
           src={imgSrc} 
           alt={title}
           width={316}
-          height={600}
-          className="w-full h-auto object-cover"
+          height={316}
+          className="w-full h-[316px] object-cover"
         />
       </div>
     </div>

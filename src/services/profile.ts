@@ -1,7 +1,28 @@
 import http from '@/utils/http'
 import { createBrowserClient } from '@supabase/ssr'
 import type { Profile, ProfileResponse, StudentProfile, TutorProfile } from '@/types/profile'
-import type { UpdateTutorProfileRequest } from '@/types/tutor-types'
+import type { UpdateTutorProfileRequest, TutorProfileResponse } from '@/types/tutor-types'
+
+interface ApiProfileResponse {
+  success: boolean;
+  message: string;
+  data: {
+    user: {
+      id: string;
+      email: string;
+      firstName: string;
+      lastName: string;
+      avatarUrl: string | null;
+      bio: string | null;
+      phone: string | null;
+      createdAt: string;
+      updatedAt: string;
+    };
+    education: any[];
+    experiences: any[];
+    subjects: any[];
+  };
+}
 
 export async function getProfile(): Promise<Profile> {
   try {
@@ -21,10 +42,62 @@ export async function getProfile(): Promise<Profile> {
 
     // Fetch the appropriate profile based on role
     const endpoint = role === 'TUTOR' ? '/tutor/profile' : '/student/profile'
-    const { data } = await http.get<ProfileResponse>(endpoint)
+    const { data } = await http.get<ApiProfileResponse>(endpoint)
     
     console.log('Profile data:', data)
-    return data.data
+    
+    // Transform the data based on role
+    if (role === 'TUTOR') {
+      const tutorProfile: TutorProfile = {
+        id: data.data.user.id,
+        email: data.data.user.email,
+        firstName: data.data.user.firstName,
+        lastName: data.data.user.lastName,
+        avatarUrl: data.data.user.avatarUrl || null,
+        role: 'TUTOR',
+        createdAt: data.data.user.createdAt,
+        profile: {
+          bio: data.data.user.bio || undefined,
+          phone: data.data.user.phone || undefined,
+          updatedAt: data.data.user.updatedAt
+        },
+        tutorProfile: {
+          user: {
+            id: data.data.user.id,
+            email: data.data.user.email,
+            firstName: data.data.user.firstName,
+            lastName: data.data.user.lastName,
+            avatarUrl: data.data.user.avatarUrl,
+            bio: data.data.user.bio,
+            phone: data.data.user.phone,
+            updatedAt: data.data.user.updatedAt,
+            createdAt: data.data.user.createdAt
+          },
+          education: data.data.education,
+          experiences: data.data.experiences,
+          subjects: data.data.subjects
+        }
+      }
+      return tutorProfile
+    } else {
+      const studentProfile: StudentProfile = {
+        id: data.data.user.id,
+        email: data.data.user.email,
+        firstName: data.data.user.firstName,
+        lastName: data.data.user.lastName,
+        avatarUrl: data.data.user.avatarUrl || null,
+        role: 'STUDENT',
+        createdAt: data.data.user.createdAt,
+        profile: {
+          bio: data.data.user.bio || undefined,
+          phone: data.data.user.phone || undefined,
+          updatedAt: data.data.user.updatedAt
+        },
+        studentOrders: [],
+        studentReviews: []
+      }
+      return studentProfile
+    }
   } catch (error: any) {
     console.error('Error fetching profile:', {
       status: error.response?.status,

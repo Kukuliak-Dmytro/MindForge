@@ -10,6 +10,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { data: profile, isLoading: isProfileLoading } = useProfile();
+  console.log(profile);
 
   // Create a single browser client instance
   const supabase = createBrowserClient(
@@ -53,7 +54,13 @@ export function Header() {
         <div className="flex justify-between items-center gap-4">
           <a href="/">
             <div className="flex items-center gap-0">
-              <Image src="/assets/images/logo.png" alt="MindForge" width={64} height={64} />
+              <Image 
+                src="/assets/images/logo.png" 
+                alt="MindForge" 
+                width={64} 
+                height={64}
+                className="w-[64px] h-[64px]"
+              />
               <span className="text-3xl text-secondary font-bold">Mind</span>
               <span className="text-3xl text-primary font-bold">Forge</span>
             </div>
