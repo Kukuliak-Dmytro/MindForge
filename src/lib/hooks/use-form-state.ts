@@ -53,6 +53,7 @@ export function useFormState<T extends Record<string, any>>(initialState: T) {
     formState,
     handleChange,
     updateField,
-    resetForm
+    resetForm,
+    setFormState
   };
 } 

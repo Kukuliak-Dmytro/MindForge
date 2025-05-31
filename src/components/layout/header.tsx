@@ -10,7 +10,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { data: profile, isLoading: isProfileLoading } = useProfile();
-  console.log(profile);
+  // console.log(profile);
 
   // Create a single browser client instance
   const supabase = createBrowserClient(

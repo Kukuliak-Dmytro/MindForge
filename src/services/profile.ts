@@ -1,7 +1,8 @@
 import http from '@/utils/http'
 import { createBrowserClient } from '@supabase/ssr'
 import type { Profile, ProfileResponse, StudentProfile, TutorProfile } from '@/types/profile'
-import type { UpdateTutorProfileRequest, TutorProfileResponse } from '@/types/tutor-types'
+import type { UpdateTutorProfileRequest, TutorProfileResponse, BaseResponse } from '@/types/tutor-types'
+import { TutorProfileError } from '@/types/tutor-types'
 
 interface ApiProfileResponse {
   success: boolean;
@@ -145,19 +146,19 @@ export async function updateProfile(profile: Partial<Profile>): Promise<Profile>
   }
 }
 
-export async function updateTutorProfile(updateData: UpdateTutorProfileRequest): Promise<TutorProfile> {
+export async function updateTutorProfile(updateData: UpdateTutorProfileRequest): Promise<TutorProfileResponse> {
   try {
-    const { data } = await http.patch<ProfileResponse>('/tutor/profile/update', updateData)
-    if (!('tutorProfile' in data.data)) {
-      throw new Error('Invalid tutor profile response')
-    }
-    return data.data as TutorProfile
+    const { data } = await http.patch<BaseResponse<TutorProfileResponse>>('/tutor/profile', updateData)
+    return data.data
   } catch (error: any) {
     console.error('Error updating tutor profile:', {
       status: error.response?.status,
       message: error.message,
       data: error.response?.data
     })
-    throw error
+    throw new TutorProfileError(
+      error.response?.data?.message || 'Failed to update tutor profile',
+      error.response?.data?.errors
+    )
   }
 } 

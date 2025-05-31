@@ -3,19 +3,38 @@
 import { useState, useMemo } from "react";
 import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Section } from "@/components/layout/section";
-import { PrimaryButton, SecondaryButton, DangerButton } from "@/components/ui/button";
+import { PrimaryButton, SecondaryButton } from "@/components/ui/button";
 import { InputText } from "@/components/ui/input-text";
 import { Textarea } from "@/components/ui/textarea";
 import Avatar from "public/assets/avatars/Avatars";
 import { useFormState } from "@/lib/hooks/use-form-state";
 import { Separator } from "@/components/ui/separator";
 import { useProfile, useUpdateProfile } from "@/hooks/use-profile";
+import { EducationSection } from "./components/education-section";
+import { ExperienceSection } from "./components/experience-section";
+import { SubjectsSection } from "./components/subjects-section";
+import { useQuery } from "@tanstack/react-query";
+import { getSubjects, getCategories, type Subject, type Category } from "@/services/subjects";
 import React from "react";
 
 export default function TutorProfile() {
     const [isEditing, setIsEditing] = useState(false);
     const { data: profile, isLoading } = useProfile();
     const updateProfile = useUpdateProfile();
+    
+    // Fetch available subjects and categories
+    const { data: subjectsResponse } = useQuery({
+        queryKey: ['subjects'],
+        queryFn: getSubjects
+    });
+
+    const { data: categoriesResponse } = useQuery({
+        queryKey: ['categories'],
+        queryFn: getCategories
+    });
+
+    const subjects = subjectsResponse?.data || [];
+    const categories = categoriesResponse?.data || [];
     
     // Initialize form state with memoized values
     const initialFormState = useMemo(() => ({
@@ -40,6 +59,7 @@ export default function TutorProfile() {
             await updateProfile.mutateAsync({
                 firstName: formState.firstName,
                 lastName: formState.lastName,
+                email: formState.email,
                 profile: {
                     bio: formState.bio,
                     phone: formState.phone,
@@ -82,6 +102,18 @@ export default function TutorProfile() {
         );
     }
 
+    if (!profile || !('tutorProfile' in profile)) {
+        return (
+            <PageWrapper>
+                <Section title="Мій профіль">
+                    <div className="text-center py-8">
+                        <p className="text-red-500">Помилка завантаження профілю</p>
+                    </div>
+                </Section>
+            </PageWrapper>
+        );
+    }
+
     return (
         <PageWrapper>
             <Section title="Мій профіль">
@@ -91,7 +123,6 @@ export default function TutorProfile() {
                         <div className="flex flex-col gap-2">
                             <PrimaryButton>Змінити</PrimaryButton>
                             <SecondaryButton>Зберегти</SecondaryButton>
-                            <DangerButton>Видалити</DangerButton>
                         </div>
                     </div>
                     <div className="w-full">
@@ -165,9 +196,19 @@ export default function TutorProfile() {
                             </div>
                         </div>
                         <Separator />
+                        
                     </div>
+                    
                 </div>
+                <EducationSection education={profile.tutorProfile.education} />
+                <ExperienceSection experiences={profile.tutorProfile.experiences} />
+                <SubjectsSection 
+                    subjects={profile.tutorProfile.subjects}
+                    availableSubjects={subjects}
+                    availableCategories={categories}
+                />
             </Section>
+            
         </PageWrapper>
     );
 }
