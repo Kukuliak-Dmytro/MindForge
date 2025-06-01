@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { PageWrapper } from "@/components/layout/page-wrapper";
 import { Section } from "@/components/layout/section";
@@ -13,6 +13,14 @@ type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che"
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
 
 export default function OrdersCatalog() {
+    return (
+        <Suspense>
+            <OrdersCatalogContent />
+        </Suspense>
+    );
+}
+
+function OrdersCatalogContent() {
     const searchParams = useSearchParams();
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
