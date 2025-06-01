@@ -86,7 +86,7 @@ export function EducationSection({ education }: EducationSectionProps) {
   return (
     <>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-semibold text-neutral-700">Освіта</h2>
+        <h2>Освіта</h2>
         <div className="flex gap-2">
           <button
             className="p-2 rounded-full bg-primary/10 hover:bg-primary/20 transition"
@@ -100,7 +100,9 @@ export function EducationSection({ education }: EducationSectionProps) {
       </div>
       <div className="flex flex-col gap-4">
         {education.map((entry) => (
-          <div key={entry.id} className="flex flex-col gap-2 p-6 bg-neutral-50 shadow-lg rounded-2xl border border-neutral-200 transition hover:shadow-xl">
+          <div key={entry.id} className={editingId === entry.id
+            ? "flex flex-col gap-4 p-6 bg-neutral-50 shadow-lg rounded-2xl border border-neutral-200 transition hover:shadow-xl w-full"
+            : "flex items-center w-full gap-4 p-4 bg-neutral-50 shadow rounded-xl border border-neutral-200 transition hover:shadow-md"}>
             {editingId === entry.id ? (
               <>
                 <InputText
@@ -153,17 +155,18 @@ export function EducationSection({ education }: EducationSectionProps) {
                 </div>
               </>
             ) : (
-              <div className="flex justify-between items-start w-full">
-                <div>
-                  <h3 className="text-base font-semibold text-neutral-800">{entry.institution}</h3>
-                  <p className="text-neutral-600">{entry.fieldOfStudy}</p>
-                  <p className="text-neutral-600">{entry.degree}</p>
-                  <p className="text-sm text-neutral-500">
-                    {new Date(entry.startDate).toLocaleDateString()} -
-                    {entry.endDate ? new Date(entry.endDate).toLocaleDateString() : 'Present'}
-                  </p>
+              <>
+                <div className="flex-1 flex flex-row items-center gap-4 min-w-0 justify-between">
+                  <div className="flex flex-col min-w-0">
+                    <span className="truncate text-lg font-medium">{entry.institution}</span>
+                    <span className="truncate text-xs">{entry.fieldOfStudy}</span>
+                    <span className="truncate text-lg font-medium">{entry.degree}</span>
+                  </div>
+                  <span className="text-lg font-medium whitespace-nowrap">
+                    {new Date(entry.startDate).toLocaleDateString()} - {entry.endDate ? new Date(entry.endDate).toLocaleDateString() : 'Present'}
+                  </span>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 ml-2">
                   <SecondaryButton size="icon" onClick={() => handleEdit(entry)} aria-label="Редагувати">
                     <FiEdit2 size={18} />
                   </SecondaryButton>
@@ -171,7 +174,7 @@ export function EducationSection({ education }: EducationSectionProps) {
                     <FiTrash2 size={18} />
                   </DangerButton>
                 </div>
-              </div>
+              </>
             )}
           </div>
         ))}

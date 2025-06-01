@@ -110,7 +110,7 @@ export function Header() {
                   </a>
                   {profile.role === 'TUTOR' ? (
                     <>
-                      <a href="/tutor/subjects" className="py-2 px-0 hover:text-secondary transition-colors">Мої предмети</a>
+                      <a href="/tutor/profile/subjects" className="py-2 px-0 hover:text-secondary transition-colors">Мої предмети</a>
                       <a href="/tutor/schedule" className="py-2 px-0 hover:text-secondary transition-colors">Розклад</a>
                       <a href="/tutor/students" className="py-2 px-0 hover:text-secondary transition-colors">Мої студенти</a>
                     </>

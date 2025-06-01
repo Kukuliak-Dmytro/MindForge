@@ -13,7 +13,6 @@ import { useProfile } from "@/hooks/use-profile";
 import { useTutorProfile } from "@/hooks/use-tutor-profile";
 import { EducationSection } from "./components/education-section";
 import { ExperienceSection } from "./components/experience-section";
-import { SubjectsSection } from "./components/subjects-section";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getSubjects, getCategories, type Subject, type Category } from "@/services/subjects";
 import React from "react";
@@ -306,11 +305,6 @@ export default function TutorProfile() {
                 </div>
                 <EducationSection education={profile.tutorProfile.education} />
                 <ExperienceSection experiences={profile.tutorProfile.experiences} />
-                <SubjectsSection 
-                    subjects={profile.tutorProfile.subjects}
-                    availableSubjects={subjects}
-                    availableCategories={categories}
-                />
             </Section>
             
         </PageWrapper>
