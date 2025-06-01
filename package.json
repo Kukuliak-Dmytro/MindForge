@@ -7,7 +7,12 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build --build-arg NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL --build-arg NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY --build-arg NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL -t mindforge-frontend:latest .",
+    "docker:run": "docker run --name mindforge-frontend -p 3000:3000 -d mindforge-frontend:latest",
+    "docker:stop": "docker stop mindforge-frontend 2>nul || echo Not running && docker rm mindforge-frontend 2>nul || echo Not found",
+    "docker:start": "npm run docker:build && npm run docker:run",
+    "docker:rebuild": "npm run docker:stop && npm run docker:build && npm run docker:run"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.2.3",
@@ -25,7 +30,6 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.503.0",
-    "mindforge": "file:",
     "next": "15.3.1",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
