@@ -19,7 +19,6 @@ COPY package*.json ./
 RUN npm ci --verbose --legacy-peer-deps && \
     npm audit --fix
 
-
 # Copy the rest of the application code
 COPY . .
 
@@ -31,11 +30,6 @@ FROM node:22.14.0-alpine
 WORKDIR /app
 
 COPY --from=build /app ./
-
-ENV NODE_ENV=production \
-    NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
-    NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
 
 EXPOSE 80
 
