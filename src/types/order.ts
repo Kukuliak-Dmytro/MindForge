@@ -1,9 +1,13 @@
+import type { Subject, Category } from './subject';
+
 export interface Order {
   id: string
   studentId: string
   tutorId: string
-  subjectId: string
-  categoryId: string
+  subjectId?: string // optional, prefer subject object
+  categoryId?: string // optional, prefer category object
+  subject: Subject
+  category: Category
   title: string
   description?: string
   createdAt: Date
@@ -45,4 +49,14 @@ export type SessionStatus =
   | 'SCHEDULED'
   | 'IN_PROGRESS'
   | 'COMPLETED'
-  | 'CANCELLED' 
+  | 'CANCELLED'
+
+export interface CreateOrderRequest {
+  title: string;
+  description?: string;
+  subjectId: string;
+  categoryId: string;
+  tutorId?: string;
+  totalPrice: number;
+  sessionsCount?: number; // Only for recurring categories
+} 

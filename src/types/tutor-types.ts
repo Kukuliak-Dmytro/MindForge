@@ -249,4 +249,16 @@ export class TutorProfileError extends Error {
     super(message);
     this.name = 'TutorProfileError';
   }
+}
+
+/**
+ * Public tutor info for catalog (matches /user/tutors response)
+ */
+export interface Tutor {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  avatarUrl: string | null;
+  bio: string | null;
 } 

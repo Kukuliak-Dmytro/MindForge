@@ -8,6 +8,8 @@ import { Filter } from "@/components/ui/filter";
 import { EmployeeCard } from "@/components/cards/employee-card";
 import Avatar from "public/assets/avatars/Avatars";
 import Pagination from "@/components/layout/pagination";
+import { fetchAllTutors } from '@/services/tutors';
+import type { Tutor } from '@/types/tutor-types';
 
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
@@ -48,6 +50,11 @@ function CatalogContent() {
         "DR": "Написання робіт"
     };
 
+    // Tutor fetching state
+    const [tutors, setTutors] = useState<Tutor[]>([]);
+    const [loadingTutors, setLoadingTutors] = useState(true);
+    const [tutorsError, setTutorsError] = useState<string | null>(null);
+
     // Initialize filters based on URL search params
     useEffect(() => {
         const subject = searchParams.get('subject');
@@ -61,6 +68,21 @@ function CatalogContent() {
             setSelectedCategories([category]);
         }
     }, [searchParams]);
+
+    useEffect(() => {
+        console.log('[Catalog] Fetching all tutors...');
+        setLoadingTutors(true);
+        fetchAllTutors()
+            .then(data => {
+                console.log('[Catalog] Tutors fetched:', data);
+                setTutors(data);
+            })
+            .catch(err => {
+                console.error('[Catalog] Error fetching tutors:', err);
+                setTutorsError(err?.response?.data?.message || 'Не вдалося завантажити фахівців.');
+            })
+            .finally(() => setLoadingTutors(false));
+    }, []);
 
     // Handle filter changes
     const handleSubjectFilterChange = (filter: string, checked: boolean) => {
@@ -109,30 +131,20 @@ function CatalogContent() {
                     </div>
                     <div className="w-full">
                         <div className="grid gap-6">
-                            <EmployeeCard 
-                                name="Смирнова Марія" 
-                                rating='4.9/5' 
-                                customAvatar={<Avatar id={1} size={100} />} 
-                                education="Магістр з інформатики, сертифікат з академічного письма" 
-                                worksSince="На сайті з 14.01" 
-                                description="Я професійно допомагаю студентам на всіх етапах написання дипломних робіт: від вибору теми та планування до написання та оформлення роботи відповідно до вимог ВНЗ."
-                            />
-                            <EmployeeCard 
-                                name="Іваненко Олександр" 
-                                rating='5/5' 
-                                customAvatar={<Avatar id={2} size={100} />} 
-                                education="Магістр з прикладної математики, кандидат наук (PhD) у галузі інформатики" 
-                                worksSince="На сайті з 14.01" 
-                                description="Я підходжу до кожного студента з урахуванням його рівня знань та навчальних потреб, створюючи персоналізовані програми, щоб допомогти досягти найкращих результатів."
-                            />
-                            <EmployeeCard 
-                                name="Коваль Андрій" 
-                                rating='4/5' 
-                                customAvatar={<Avatar id={5} size={100} />} 
-                                education="Доктор наук (PhD) з інформаційних технологій, університет 'Київ-Могилянська академія'" 
-                                worksSince="На сайті з 14.01" 
-                                description="Маю глибокі знання та практичний досвід у своїй сфері, що дозволяє мені не лише викладати теорію, а й передавати студентам цінні практичні навички."
-                            />
+                            {loadingTutors && <div>Завантаження фахівців...</div>}
+                            {tutorsError && <div className="text-red-600">{tutorsError}</div>}
+                            {!loadingTutors && !tutorsError && tutors.length === 0 && <div>Фахівців не знайдено.</div>}
+                            {!loadingTutors && !tutorsError && tutors.map((tutor, idx) => (
+                                <EmployeeCard
+                                    key={tutor.id}
+                                    name={`${tutor.firstName} ${tutor.lastName}`}
+                                    rating={''}
+                                    avatarId={((idx % 6) + 1) as 1 | 2 | 3 | 4 | 5 | 6}
+                                    education={''}
+                                    worksSince={''}
+                                    description={tutor.bio || ''}
+                                />
+                            ))}
                         </div>
                     </div>
                     {/* <Pagination></Pagination> */}

@@ -9,6 +9,10 @@ import { EmployeeCard } from "@/components/cards/employee-card";
 import Avatar from "public/assets/avatars/Avatars";
 import Pagination from "@/components/layout/pagination";
 import OrderCard from "@/components/cards/order-card";
+import { fetchOrders, getSubjects, getCategories } from '@/services/subjects';
+import type { Order } from '@/types/order';
+import type { Subject, Category } from '@/types/subject';
+
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
 
@@ -24,6 +28,11 @@ function OrdersCatalogContent() {
     const searchParams = useSearchParams();
     const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+    const [orders, setOrders] = useState<Order[]>([]);
+    const [subjects, setSubjects] = useState<Subject[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
     
     // Subject and category mappings
     const subjectCodes: SubjectCode[] = ["Mat", "Ukr", "Eng", "Bio", "Geo", "His", "Phy", "Che", "Inf"];
@@ -61,6 +70,26 @@ function OrdersCatalogContent() {
             setSelectedCategories([category]);
         }
     }, [searchParams]);
+
+    // Fetch subjects and categories for mapping
+    useEffect(() => {
+        getSubjects().then(res => setSubjects(res.data)).catch(() => setSubjects([]));
+        getCategories().then(res => setCategories(res.data)).catch(() => setCategories([]));
+    }, []);
+
+    // Fetch orders
+    useEffect(() => {
+        setLoading(true);
+        setError(null);
+        fetchOrders()
+            .then(data => setOrders(data))
+            .catch(err => setError(err?.response?.data?.message || err.message || 'Не вдалося завантажити замовлення.'))
+            .finally(() => setLoading(false));
+    }, []);
+
+    // Filter helpers
+    const getSubjectName = (id: string) => subjects.find(s => s.id === id)?.name || '—';
+    const getCategoryName = (id: string) => categories.find(c => c.id === id)?.name || '—';
 
     // Handle filter changes
     const handleSubjectFilterChange = (filter: string, checked: boolean) => {
@@ -109,9 +138,23 @@ function OrdersCatalogContent() {
                     </div>
                     <div className="w-full">
                         <div className="grid gap-4">
-                            <OrderCard variant="full"></OrderCard>
-                            <OrderCard variant="full"></OrderCard> 
-                            <OrderCard variant="full"></OrderCard>
+                            {loading && <div>Завантаження замовлень...</div>}
+                            {error && <div className="text-red-600">{error}</div>}
+                            {!loading && !error && orders.length === 0 && <div>Замовлень не знайдено.</div>}
+                            {!loading && !error && orders.map(order => (
+                                <OrderCard
+                                    key={order.id}
+                                    id={order.id}
+                                    subject={order.subject?.name}
+                                    category={order.category?.name}
+                                    title={order.title}
+                                    description={order.description}
+                                    price={order.totalPrice}
+                                    created={order.createdAt ? new Date(order.createdAt).toLocaleDateString() : undefined}
+                                    // Add more fields as needed
+                                    variant="full"
+                                />
+                            ))}
                         </div>
                     </div>
                  

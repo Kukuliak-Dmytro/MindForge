@@ -3,6 +3,7 @@ import { createBrowserClient } from '@supabase/ssr'
 import type { Profile, ProfileResponse, StudentProfile, TutorProfile } from '@/types/profile'
 import type { UpdateTutorProfileRequest, TutorProfileResponse, BaseResponse } from '@/types/tutor-types'
 import { TutorProfileError } from '@/types/tutor-types'
+import type { Tutor } from '@/types/tutor-types'
 
 interface ApiProfileResponse {
   success: boolean;
