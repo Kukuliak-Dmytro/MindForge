@@ -35,6 +35,9 @@ model User {
   sentMessages    Message[]
   studentReviews  Review[]         @relation("StudentReviews")
   tutorReviews    Review[]         @relation("TutorReviews")
+  tutorSavedOrders   SavedOrder[] @relation("TutorSavedOrders")
+  studentSavedTutors SavedTutor[] @relation("SavedTutorStudent")
+  tutorSavedTutors   SavedTutor[] @relation("SavedTutorTutor")
 }
 
 model Profile {
@@ -126,6 +129,7 @@ model Order {
   sessions        Session[]
   reviews         Review[]
   chat            Chat?
+  savedOrders     SavedOrder[]
 }
 
 model Session {
@@ -179,5 +183,31 @@ model Message {
   // Relations
   chat      Chat     @relation(fields: [chatId], references: [id])
   sender    User     @relation(fields: [senderId], references: [id])
+}
+
+model SavedOrder {
+  id        String   @id @default(uuid())
+  tutorId   String
+  orderId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  tutor     User     @relation("TutorSavedOrders", fields: [tutorId], references: [id])
+  order     Order    @relation(fields: [orderId], references: [id])
+
+  @@unique([tutorId, orderId])
+}
+
+model SavedTutor {
+  id        String   @id @default(uuid())
+  studentId String
+  tutorId   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  student   User     @relation("SavedTutorStudent", fields: [studentId], references: [id])
+  tutor     User     @relation("SavedTutorTutor", fields: [tutorId], references: [id])
+
+  @@unique([studentId, tutorId])
 }
         

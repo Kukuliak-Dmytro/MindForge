@@ -10,6 +10,8 @@ import Avatar from "public/assets/avatars/Avatars";
 import Pagination from "@/components/layout/pagination";
 import { fetchAllTutors } from '@/services/tutors';
 import type { Tutor } from '@/types/tutor-types';
+import { getSavedTutors, saveTutor } from '@/services/profile';
+import type { SavedTutor } from '@/types/order';
 
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
@@ -55,6 +57,10 @@ function CatalogContent() {
     const [loadingTutors, setLoadingTutors] = useState(true);
     const [tutorsError, setTutorsError] = useState<string | null>(null);
 
+    // Saved tutors state
+    const [savedTutors, setSavedTutors] = useState<SavedTutor[]>([]);
+    const [saving, setSaving] = useState<string | null>(null);
+
     // Initialize filters based on URL search params
     useEffect(() => {
         const subject = searchParams.get('subject');
@@ -83,6 +89,53 @@ function CatalogContent() {
             })
             .finally(() => setLoadingTutors(false));
     }, []);
+
+    useEffect(() => {
+        getSavedTutors()
+            .then(setSavedTutors)
+            .catch(() => setSavedTutors([]));
+    }, []);
+
+    const isTutorSaved = (tutorId: string) => savedTutors.some(s => s.tutorId === tutorId);
+
+    const handleToggleSave = async (tutorId: string) => {
+        console.log('Toggling save for tutor:', tutorId);
+        setSaving(tutorId);
+        // Optimistic update
+        const currentlySaved = isTutorSaved(tutorId);
+        setSavedTutors(prev => {
+            let updated;
+            if (!currentlySaved) {
+                updated = [...prev, { id: '', studentId: '', tutorId, createdAt: '' }];
+            } else {
+                updated = prev.filter(s => s.tutorId !== tutorId);
+            }
+            console.log('Optimistically updated savedTutors:', updated);
+            return updated;
+        });
+        try {
+            const result = await saveTutor(tutorId);
+            console.log('API response for saveTutor:', result);
+            if (result.savedTutors) {
+                setSavedTutors(result.savedTutors);
+                console.log('Set savedTutors from backend:', result.savedTutors);
+            }
+        } catch (err) {
+            // Revert optimistic update on error
+            setSavedTutors(prev => {
+                let updated;
+                if (currentlySaved) {
+                    updated = [...prev, { id: '', studentId: '', tutorId, createdAt: '' }];
+                } else {
+                    updated = prev.filter(s => s.tutorId !== tutorId);
+                }
+                console.error('Reverting optimistic update due to error:', err, updated);
+                return updated;
+            });
+        } finally {
+            setSaving(null);
+        }
+    };
 
     // Handle filter changes
     const handleSubjectFilterChange = (filter: string, checked: boolean) => {
@@ -143,6 +196,9 @@ function CatalogContent() {
                                     education={''}
                                     worksSince={''}
                                     description={tutor.bio || ''}
+                                    saved={isTutorSaved(tutor.id)}
+                                    onSave={() => handleToggleSave(tutor.id)}
+                                    onUnsave={() => handleToggleSave(tutor.id)}
                                 />
                             ))}
                         </div>

@@ -12,6 +12,8 @@ import OrderCard from "@/components/cards/order-card";
 import { fetchOrders, getSubjects, getCategories } from '@/services/subjects';
 import type { Order } from '@/types/order';
 import type { Subject, Category } from '@/types/subject';
+import { getSavedOrders, saveOrder } from '@/services/profile';
+import type { SavedOrder } from '@/types/order';
 
 type SubjectCode = "Mat" | "Ukr" | "Eng" | "Bio" | "Geo" | "His" | "Phy" | "Che" | "Inf";
 type CategoryCode = "TT" | "HW" | "KR" | "DT" | "DR";
@@ -33,6 +35,8 @@ function OrdersCatalogContent() {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [savedOrders, setSavedOrders] = useState<SavedOrder[]>([]);
+    const [saving, setSaving] = useState<string | null>(null); // orderId being saved/unsaved
     
     // Subject and category mappings
     const subjectCodes: SubjectCode[] = ["Mat", "Ukr", "Eng", "Bio", "Geo", "His", "Phy", "Che", "Inf"];
@@ -87,6 +91,13 @@ function OrdersCatalogContent() {
             .finally(() => setLoading(false));
     }, []);
 
+    // Fetch saved orders on mount
+    useEffect(() => {
+        getSavedOrders()
+            .then(setSavedOrders)
+            .catch(() => setSavedOrders([]));
+    }, []);
+
     // Filter helpers
     const getSubjectName = (id: string) => subjects.find(s => s.id === id)?.name || '—';
     const getCategoryName = (id: string) => categories.find(c => c.id === id)?.name || '—';
@@ -105,6 +116,47 @@ function OrdersCatalogContent() {
             setSelectedCategories(prev => [...prev, filter]);
         } else {
             setSelectedCategories(prev => prev.filter(item => item !== filter));
+        }
+    };
+
+    const isOrderSaved = (orderId: string) => savedOrders.some(s => s.orderId === orderId);
+
+    const handleToggleSave = async (orderId: string) => {
+        console.log('Toggling save for order:', orderId);
+        setSaving(orderId);
+        // Optimistic update
+        const currentlySaved = isOrderSaved(orderId);
+        setSavedOrders(prev => {
+            let updated;
+            if (!currentlySaved) {
+                updated = [...prev, { id: '', tutorId: '', orderId, createdAt: '' }];
+            } else {
+                updated = prev.filter(s => s.orderId !== orderId);
+            }
+            console.log('Optimistically updated savedOrders:', updated);
+            return updated;
+        });
+        try {
+            const result = await saveOrder(orderId);
+            console.log('API response for saveOrder:', result);
+            if (result.savedOrders) {
+                setSavedOrders(result.savedOrders);
+                console.log('Set savedOrders from backend:', result.savedOrders);
+            }
+        } catch (err) {
+            // Revert optimistic update on error
+            setSavedOrders(prev => {
+                let updated;
+                if (currentlySaved) {
+                    updated = [...prev, { id: '', tutorId: '', orderId, createdAt: '' }];
+                } else {
+                    updated = prev.filter(s => s.orderId !== orderId);
+                }
+                console.error('Reverting optimistic update due to error:', err, updated);
+                return updated;
+            });
+        } finally {
+            setSaving(null);
         }
     };
 
@@ -151,8 +203,10 @@ function OrdersCatalogContent() {
                                     description={order.description}
                                     price={order.totalPrice}
                                     created={order.createdAt ? new Date(order.createdAt).toLocaleDateString() : undefined}
-                                    // Add more fields as needed
                                     variant="full"
+                                    saved={isOrderSaved(order.id)}
+                                    onSave={() => handleToggleSave(order.id)}
+                                    onUnsave={() => handleToggleSave(order.id)}
                                 />
                             ))}
                         </div>

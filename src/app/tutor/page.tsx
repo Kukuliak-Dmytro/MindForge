@@ -27,8 +27,8 @@ import { BenefitCard } from "@/components/cards/benefit-card";
                         <SubjectSnippet variant="Inverse" title="Дипломні роботи" icon="DR" />
                     </div>
                     <div className="flex flex-col sm:flex-row justify-between gap-4">
-                        <PrimaryButton className="!w-full sm:w-auto">Зареєструватися</PrimaryButton>
-                        <SecondaryButton className="!w-full sm:w-auto">Каталог замовлень</SecondaryButton>
+                        <PrimaryButton className="!w-full sm:w-auto" href="/auth/signup">Зареєструватися</PrimaryButton>
+                        <SecondaryButton className="!w-full sm:w-auto" href="/tutor/orders">Каталог замовлень</SecondaryButton>
                     </div>
                 </div>
             </Section>
@@ -85,7 +85,7 @@ import { BenefitCard } from "@/components/cards/benefit-card";
                         />
                     </div>
 
-                    <PrimaryButton size="large" className="w-full max-w-[500px]">Каталог замовлень</PrimaryButton>
+                    <PrimaryButton size="large" className="w-full max-w-[500px]" href="/tutor/orders">Каталог замовлень</PrimaryButton>
                 </div>
             </Section>
             <Section className="grid gap-[60px] text-center">
@@ -142,7 +142,7 @@ import { BenefitCard } from "@/components/cards/benefit-card";
             <Section>
                 <div className="flex items-center justify-between pb-8 border-b-2 border-rich-black">
                     <h2>Допоможи людям кувати знання!</h2>
-                    <PrimaryButton size={"large"}> Реєстрація</PrimaryButton>
+                    <PrimaryButton size={"large"} href="/auth/signup"> Реєстрація</PrimaryButton>
                 </div>
                 
 

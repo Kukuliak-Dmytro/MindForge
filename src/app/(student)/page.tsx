@@ -35,7 +35,7 @@ export default function Home() {
 
             <div className="flex  gap-4 justify-between">
               <PrimaryButton href="/catalog">Знайти фахівця</PrimaryButton>
-              <SecondaryButton>Розмістити замовлення</SecondaryButton>
+              <SecondaryButton href="/orders/create">Розмістити замовлення</SecondaryButton>
             </div>
           </div>
 
@@ -87,7 +87,7 @@ export default function Home() {
           </div>
 
 
-          <PrimaryButton size="large" className="w-[300px]">Перейти</PrimaryButton>
+          <PrimaryButton size="large" className="w-[300px]" href="/catalog">Перейти</PrimaryButton>
         </div>
       </Section>
 
@@ -176,7 +176,7 @@ export default function Home() {
             />
           </div>
 
-          <PrimaryButton size="large" className="w-[500px]">Створити замовлення</PrimaryButton>
+          <PrimaryButton size="large" className="w-[500px]" href="/orders/create">Створити замовлення</PrimaryButton>
         </div>
       </Section>
 
@@ -263,7 +263,7 @@ export default function Home() {
       <Section>
         <div className="flex flex-col md:flex-row justify-between items-center border-b-2 border-dark-gray py-6">
           <h2>Куй знання, змінюй майбутнє</h2>
-          <PrimaryButton size="large">Створити замовлення</PrimaryButton>
+          <PrimaryButton size="large" href="/orders/create">Створити замовлення</PrimaryButton>
         </div>
       </Section>
     </PageWrapper>

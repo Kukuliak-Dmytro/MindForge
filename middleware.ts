@@ -3,6 +3,8 @@ import { NextResponse, type NextRequest } from 'next/server'
 
 // List of public paths that don't require authentication
 const publicPaths = [
+  '/',
+  '/tutor',
   '/auth/login',
   '/auth/signup',
   '/auth/forgot-password',
@@ -14,14 +16,7 @@ const publicPaths = [
   '/_next',
   '/favicon.ico',
   '/assets',
-]
-
-// List of shared paths accessible by both roles
-const sharedPaths = [
-  '/profile',
-  '/saved',
-  '/messages',
-  '/orders',
+  '/orders/create',
 ]
 
 export async function middleware(request: NextRequest) {
@@ -81,22 +76,20 @@ export async function middleware(request: NextRequest) {
   // Get user role from metadata
   const role = user.user_metadata.role || 'STUDENT'
 
-  // Check if the path is shared
-  const isSharedPath = sharedPaths.some(sharedPath => path.startsWith(sharedPath))
-  if (isSharedPath) {
-    return response
-  }
-
-  // Handle role-based routing
-  if (role === 'TUTOR') {
-    // If tutor tries to access student routes, redirect to tutor dashboard
-    if (path === '/' || path.startsWith('/(student)')) {
-      return NextResponse.redirect(new URL('/tutor', request.url))
+  // Tutor-only area
+  if (path.startsWith('/tutor')) {
+    if (role !== 'TUTOR') {
+      return NextResponse.redirect(new URL('/', request.url))
     }
   } else {
-    // If student tries to access tutor routes, redirect to student dashboard
-    if (path.startsWith('/tutor')) {
-      return NextResponse.redirect(new URL('/', request.url))
+    // Student-only area (profile, orders, chats, saved, etc.)
+    if (role === 'TUTOR' && (
+      path.startsWith('/profile') ||
+      path.startsWith('/orders') ||
+      path.startsWith('/chats') ||
+      path.startsWith('/saved')
+    )) {
+      return NextResponse.redirect(new URL('/tutor', request.url))
     }
   }
 

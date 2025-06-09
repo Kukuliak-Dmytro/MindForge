@@ -14,7 +14,7 @@ export default function ChatCard({...props}: ChatCardProps) {
                 <h4>Петро Петров</h4>
                 <div className="flex justify-between items-center w-full">
                     <h6>Підготовка до ЗНО з математики</h6>
-                    <PrimaryButton>Перейти</PrimaryButton>
+                    <PrimaryButton href="/chats">Перейти</PrimaryButton>
                 </div>
             </div>
 

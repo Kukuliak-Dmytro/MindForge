@@ -113,6 +113,7 @@ export function Header() {
                       <a href="/tutor/profile/subjects" className="py-2 px-0 hover:text-secondary transition-colors">Мої предмети</a>
                       <a href="/tutor/schedule" className="py-2 px-0 hover:text-secondary transition-colors">Розклад</a>
                       <a href="/tutor/students" className="py-2 px-0 hover:text-secondary transition-colors">Мої студенти</a>
+                      <a href="/tutor/saved" className="py-2 px-0 hover:text-secondary transition-colors">Збережені замовлення</a>
                     </>
                   ) : (
                     <>

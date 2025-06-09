@@ -4,6 +4,7 @@ import type { Profile, ProfileResponse, StudentProfile, TutorProfile } from '@/t
 import type { UpdateTutorProfileRequest, TutorProfileResponse, BaseResponse } from '@/types/tutor-types'
 import { TutorProfileError } from '@/types/tutor-types'
 import type { Tutor } from '@/types/tutor-types'
+import type { SavedOrder, SavedTutor } from '@/types/order'
 
 interface ApiProfileResponse {
   success: boolean;
@@ -162,4 +163,28 @@ export async function updateTutorProfile(updateData: UpdateTutorProfileRequest):
       error.response?.data?.errors
     )
   }
+}
+
+// Saved Orders (Tutor)
+export async function getSavedOrders(): Promise<SavedOrder[]> {
+  const { data } = await http.get("/tutor/saved-orders");
+  const arr = (data as { data?: unknown }).data;
+  return Array.isArray(arr) ? arr as SavedOrder[] : [];
+}
+
+export async function saveOrder(orderId: string): Promise<{ saved: boolean, savedOrders: SavedOrder[] }> {
+  const { data } = await http.post("/tutor/saved-orders", { orderId });
+  return (data as { data: { saved: boolean, savedOrders: SavedOrder[] } }).data;
+}
+
+// Saved Tutors (Student)
+export async function getSavedTutors(): Promise<SavedTutor[]> {
+  const { data } = await http.get("/student/saved-tutors");
+  const arr = (data as { data?: unknown }).data;
+  return Array.isArray(arr) ? arr as SavedTutor[] : [];
+}
+
+export async function saveTutor(tutorId: string): Promise<{ saved: boolean, savedTutors: SavedTutor[] }> {
+  const { data } = await http.post("/student/saved-tutors", { tutorId });
+  return (data as { data: { saved: boolean, savedTutors: SavedTutor[] } }).data;
 } 
