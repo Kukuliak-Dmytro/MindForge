@@ -1,10 +1,10 @@
 import http from '@/utils/http'
-import { createBrowserClient } from '@supabase/ssr'
 import type { Profile, ProfileResponse, StudentProfile, TutorProfile } from '@/types/profile'
 import type { UpdateTutorProfileRequest, TutorProfileResponse, BaseResponse } from '@/types/tutor-types'
 import { TutorProfileError } from '@/types/tutor-types'
 import type { Tutor } from '@/types/tutor-types'
 import type { SavedOrder, SavedTutor } from '@/types/order'
+import { supabaseClient } from '@/utils/supabase/client'
 
 interface ApiProfileResponse {
   success: boolean;
@@ -27,17 +27,16 @@ interface ApiProfileResponse {
   };
 }
 
-export async function getProfile(): Promise<Profile> {
+export async function getProfile(): Promise<Profile | null> {
   try {
-    // Get role from Supabase user metadata
-    const supabase = createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
+    // Replace local supabase creation with singleton
+    // const supabase = createBrowserClient(...)
+    const supabase = supabaseClient;
     
     const { data: { user }, error: userError } = await supabase.auth.getUser()
     if (userError || !user) {
-      throw new Error('Failed to get user data')
+      // No user is authenticated; return null instead of throwing
+      return null;
     }
 
     console.log('User Metadata:', user.user_metadata)

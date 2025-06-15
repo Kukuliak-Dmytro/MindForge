@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { createClient as createBrowserClient } from './supabase/client'
-import { createClient as createServerClient } from './supabase/server'
+import { supabaseClient } from './supabase/client'
 
 // Create axios instance with base configuration
 const http = axios.create({
@@ -10,32 +9,18 @@ const http = axios.create({
   },
 })
 
-// Helper to get the appropriate Supabase client
-const getSupabaseClient = async () => {
-  // Check if we're in a browser environment
-  if (typeof window !== 'undefined') {
-    return createBrowserClient()
-  }
-  // Server environment
-  return await createServerClient()
-}
-
 // Helper to get the session token
 const getSessionToken = async () => {
   try {
-    const supabase = await getSupabaseClient()
-    const { data: { session }, error } = await supabase.auth.getSession()
-    
+    const { data: { session }, error } = await supabaseClient.auth.getSession()
     if (error) {
       console.error('Error getting session:', error)
       return null
     }
-    
     if (!session?.access_token) {
       console.warn('No access token found in session')
       return null
     }
-    
     return session.access_token
   } catch (error) {
     console.error('Error in getSessionToken:', error)
@@ -49,13 +34,11 @@ http.interceptors.request.use(
     try {
       // Get the session token
       const token = await getSessionToken()
-      
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       } else {
         console.warn('No auth token available for request:', config.url)
       }
-      
       return config
     } catch (error) {
       console.error('Error in request interceptor:', error)
@@ -73,7 +56,6 @@ http.interceptors.response.use(
   (response: any) => response,
   async (error: any) => {
     const originalRequest = error.config as any & { _retry?: boolean }
-
     // Log the error details
     console.error('Response error:', {
       status: error.response?.status,
@@ -82,22 +64,16 @@ http.interceptors.response.use(
       headers: originalRequest?.headers,
       error: error.message
     })
-
     // Handle 401 Unauthorized errors
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
-
       try {
-        const supabase = await getSupabaseClient()
-        
         // Try to refresh the session
-        const { data: { session }, error: refreshError } = await supabase.auth.refreshSession()
-        
+        const { data: { session }, error: refreshError } = await supabaseClient.auth.refreshSession()
         if (refreshError) {
           console.error('Session refresh error:', refreshError)
           throw refreshError
         }
-        
         if (session?.access_token) {
           // Update the authorization header
           originalRequest.headers.Authorization = `Bearer ${session.access_token}`
@@ -120,7 +96,6 @@ http.interceptors.response.use(
         return Promise.reject(refreshError)
       }
     }
-
     return Promise.reject(error)
   }
 )

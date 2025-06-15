@@ -3,20 +3,20 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { createBrowserClient } from '@supabase/ssr';
-import { useProfile } from "@/hooks/use-profile";
+import { useProfile, profileKeys } from "@/hooks/use-profile";
+import { useQueryClient } from '@tanstack/react-query';
+import { supabaseClient } from "@/utils/supabase/client";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
   const { data: profile, isLoading: isProfileLoading } = useProfile();
+  const queryClient = useQueryClient();
   // console.log(profile);
 
-  // Create a single browser client instance
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // Remove the local supabase creation
+  // const supabase = createBrowserClient(...)
+  const supabase = supabaseClient;
 
   // Handle click outside
   useEffect(() => {
@@ -35,13 +35,41 @@ export function Header() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMenuOpen]);
 
+  // Listen for Supabase auth state changes and invalidate profile query
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') {
+        queryClient.invalidateQueries({ queryKey: profileKeys.details() });
+        if (event === 'SIGNED_IN') {
+          // Try to get user role from session or refetch profile
+          let role = 'STUDENT';
+          if (session?.user?.user_metadata?.role) {
+            role = session.user.user_metadata.role;
+          }
+          // Determine target page
+          const target = role === 'TUTOR' ? '/tutor/profile' : '/profile';
+          if (window.location.pathname !== target) {
+            window.location.href = target; // Hard reload to ensure session is fresh
+          } else {
+            window.location.reload();
+          }
+        }
+      }
+    });
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, [supabase, queryClient, router]);
+
   const handleSignOut = async () => {
     try {
       setIsMenuOpen(false);
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      queryClient.invalidateQueries({ queryKey: profileKeys.details() });
       router.push('/');
       router.refresh();
+      window.location.reload();
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -131,6 +159,7 @@ export function Header() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-2">
+                  <div className="py-2 px-0 text-gray-500">Ви не увійшли в систему</div>
                   <a href="/auth/login" className="py-2 px-0 hover:text-secondary transition-colors">Увійти</a>
                   <a href="/auth/signup" className="py-2 px-0 hover:text-secondary transition-colors">Зареєструватися</a>
                 </div>

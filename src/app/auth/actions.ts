@@ -1,12 +1,8 @@
-'use server'
+'use client'
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createClient } from '@/utils/supabase/server'
+import { supabaseClient } from '@/utils/supabase/client'
 
 export async function login(formData: FormData) {
-  const supabase = await createClient()
-
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
@@ -14,7 +10,7 @@ export async function login(formData: FormData) {
     password: formData.get('password') as string,
   }
 
-  const { data: { user, session }, error } = await supabase.auth.signInWithPassword(data)
+  const { data: { user, session }, error } = await supabaseClient.auth.signInWithPassword(data)
 
   if (error) {
     return { error: error.message }
@@ -28,23 +24,16 @@ export async function login(formData: FormData) {
   // Get user role from metadata
   const role = user?.user_metadata.role || 'STUDENT'
 
-  // Revalidate all paths that might need updating
-  revalidatePath('/', 'layout')
-  revalidatePath('/tutor', 'layout')
-  revalidatePath('/(student)', 'layout')
-  
   // Redirect based on role
   if (role === 'TUTOR') {
-    redirect('/tutor')
+    window.location.href = '/tutor'
   } else {
-    redirect('/')
+    window.location.href = '/'
   }
 }
 
 export async function signup(formData: FormData) {
   try {
-    const supabase = await createClient()
-
     // Get and validate all required fields
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -98,7 +87,7 @@ export async function signup(formData: FormData) {
       password: '[REDACTED]'
     });
 
-    const { data: signupData, error } = await supabase.auth.signUp(data)
+    const { data: signupData, error } = await supabaseClient.auth.signUp(data)
 
     if (error) {
       console.error('Supabase signup error:', {
@@ -115,8 +104,6 @@ export async function signup(formData: FormData) {
     // Wait for the session to be established
     await new Promise(resolve => setTimeout(resolve, 100))
 
-    revalidatePath('/', 'layout')
-    
     // Return redirect URL instead of redirecting directly
     return { 
       redirectTo: metadata.role === 'TUTOR' ? '/tutor' : '/'
@@ -128,13 +115,11 @@ export async function signup(formData: FormData) {
 }
 
 export async function resetPassword(formData: FormData) {
-  const supabase = await createClient()
-
   const data = {
     email: formData.get('email') as string,
   }
 
-  const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(data.email, {
     redirectTo: 'http://localhost:3000/auth/update-password',
   })
 
@@ -147,13 +132,11 @@ export async function resetPassword(formData: FormData) {
 }
 
 export async function updatePassword(formData: FormData) {
-  const supabase = await createClient()
-
   const data = {
     password: formData.get('password') as string,
   }
 
-  const { error } = await supabase.auth.updateUser({
+  const { error } = await supabaseClient.auth.updateUser({
     password: data.password,
   })
 
@@ -162,6 +145,5 @@ export async function updatePassword(formData: FormData) {
     return { error: error.message }
   }
 
-  revalidatePath('/', 'layout')
-  redirect('/')
+  window.location.href = '/'
 }
